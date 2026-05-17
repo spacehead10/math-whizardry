@@ -1,0 +1,97 @@
+package core;
+
+public interface Values {
+    double STRONG_ATTACK_MULTIPLIER = 1.5;
+    double WEAK_ATTACK_MULTIPLIER = 0.5;
+    double CRIT_MULTIPLIER = 1.5;
+    double CRIT_CHANCE = 0.05;
+    double MISS_CHANCE = 0.1;
+
+    double BASE_CREATURE_HEALTH = 100;
+    double BASE_PLAYER_HEALTH = 100;
+    double TIER_ONE_DAMAGE = 25;
+    double TIER_TWO_DAMAGE = 50;
+    double TIER_THREE_DAMAGE = 175;
+    double AREA_ATTACK_DAMAGE_MULTIPLIER = 1;
+
+    double RECHARGE_AMOUNT = 1;
+    double MAX_ENERGY = 10;
+    double MAIN_SINGLE_ATTACK_COST = 0;
+    double MAIN_AREA_ATTACK_COST = 3;
+    double ALT_SINGLE_ATTACK_COST = 1;
+    double ALT_AREA_ATTACK_COST = 4;
+
+    double CAPTURE_REQUIREMENT = 0.25;
+
+    int DEFAULT_STARTING_LEVEL = 1;
+    int DEFAULT_MAX_LEVEL = 100;
+    double BASE_XP_REQUIREMENT = 30;
+    double XP_SCALING = 1.5; //linear scaling
+    double HEALTH_SCALING = 1.5; //quadratic scaling
+    double POWER_SCALING = 0.38; //quadratic scaling
+
+    double BASE_XP_REWARD = 10;
+    int BASE_GOLD_REWARD = 10;
+
+    int DEFAULT_CARD_DURATION = 600;
+    int BATTLE_ANNOUNCEMENT_DURATION = 150;
+
+    float TEXT_FLOAT_SPEED = 0.2f;
+
+    int ANSWER_CHOICE_WIDTH = 500;
+
+    int ITEM_BUTTON_WIDTH = 256;
+    int ITEM_BUTTON_HEIGHT = 320;
+    int INVENTORY_SPACING = 30;
+    int ITEMS_PER_INVENTORY_ROW = 3;
+    int MAX_STACK_SIZE = Integer.MAX_VALUE;
+
+    int PET_BUTTON_WIDTH = 256;
+    int PET_BUTTON_HEIGHT = 320;
+    int PET_SELECTOR_SPACING = 30;
+    int PETS_PER_SELECTOR_ROW = 3;
+
+    int PLAYER_MAIN_SINGLE_UPGRADE_ONE = 20;
+    int PLAYER_MAIN_AREA_UPGRADE_ONE = 30;
+    int CREATURE_ALT_SINGLE_UNLOCK = 10;
+    int CREATURE_ALT_AREA_UNLOCK = 20;
+    int CREATURE_MAIN_SINGLE_UPGRADE_ONE = 20;
+    int CREATURE_MAIN_AREA_UPGRADE_ONE = 30;
+    int CREATURE_ALT_SINGLE_UPGRADE_ONE = 30;
+    int CREATURE_ALT_AREA_UPGRADE_ONE = 40;
+
+    int ENEMY_LEVEL_DIFFERENCE = 3;
+
+    double ANIMATION_TIMER_RATE = 0.125;
+
+    int ROOM_GRID_WIDTH = 16;
+    int ROOM_GRID_HEIGHT = 9;
+
+    int BIOME_MAX_ROOMS_X = 7;
+    int BIOME_MAX_ROOMS_Y = 7;
+
+    float WORLD_UNIT_SCALE = 0.66f;
+
+    float PLAYER_SPEED = 4;
+
+    int SPAWN_COOLDOWN = 1800; //Intended cooldown 2 min = 7200; temporarily 1800 for quicker testing
+
+    float AGGRO_RADIUS = 225;
+
+    int EQUIP_BUTTON_WIDTH = 320;
+    int EQUIP_BUTTON_HEIGHT = 64;
+    int DEFAULT_SQUARE_BUTTON_SIZE = 96;
+    int STATE_BUTTON_WIDTH = 320;
+    int STATE_BUTTON_HEIGHT = 64;
+    int SPELL_BUTTON_WIDTH = 480;
+    int SPELL_BUTTON_HEIGHT = 320;
+    int LARGE_SQUARE_BUTTON_SIZE = 128;
+    int SWITCH_CHOICE_BUTTON_SIZE = 128;
+    int CANCEL_SWITCH_BUTTON_WIDTH = 320;
+    int CANCEL_SWITCH_BUTTON_HEIGHT = 64;
+    int MEGA_SQUARE_BUTTON_SIZE = 256;
+    int TELEPORT_BUTTON_WIDTH = 320;
+    int TELEPORT_BUTTON_HEIGHT = 64;
+
+    double RELIC_DROP_CHANCE = 0.05;
+}

@@ -1,0 +1,12 @@
+package combat;
+
+public enum BattleStep {
+    LEFT_CHARGING,
+    LEFT_DECIDING,
+    MATH_QUESTION,
+    LEFT_ATTACKING,
+    LEFT_SWITCHING,
+    RIGHT_CHARGING,
+    RIGHT_DECIDING,
+    RIGHT_ATTACKING;
+}
