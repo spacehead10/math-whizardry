@@ -72,9 +72,9 @@ public interface Values {
 
     float WORLD_UNIT_SCALE = 0.66f;
 
-    float PLAYER_SPEED = 4;
+    float PLAYER_SPEED = 5;
 
-    int SPAWN_COOLDOWN = 1800; //Intended cooldown 2 min = 7200; temporarily 1800 for quicker testing
+    int SPAWN_COOLDOWN = 3600;
 
     float AGGRO_RADIUS = 225;
 
@@ -94,4 +94,8 @@ public interface Values {
     int TELEPORT_BUTTON_HEIGHT = 64;
 
     double RELIC_DROP_CHANCE = 0.05;
+
+    int SPELL_DELAY = 60;
+    int SPELL_EFFECT_DURATION = 48;
+    float PROJECTILE_SPEED = 25;
 }

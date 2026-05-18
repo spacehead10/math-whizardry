@@ -225,7 +225,7 @@ public class MathQuestion implements Values {
                     correctText = correctText + "+";
                 }
             }
-            while (correctText.charAt(correctText.length() - 1) == '+') {
+            while (!correctText.isEmpty() && correctText.charAt(correctText.length() - 1) == '+') {
                 correctText = correctText.substring(0, correctText.length() - 1);
             }
 
@@ -633,7 +633,7 @@ public class MathQuestion implements Values {
                     noCText = noCText + "+";
                 }
             }
-            while (noCText.charAt(noCText.length() - 1) == '+') {
+            while (!noCText.isEmpty() && noCText.charAt(noCText.length() - 1) == '+') {
                 noCText = noCText.substring(0, noCText.length() - 1);
             }
 
@@ -669,7 +669,7 @@ public class MathQuestion implements Values {
                     differentiatedText = differentiatedText + "+";
                 }
             }
-            while (differentiatedText.charAt(differentiatedText.length() - 1) == '+') {
+            while (!differentiatedText.isEmpty() && differentiatedText.charAt(differentiatedText.length() - 1) == '+') {
                 differentiatedText = differentiatedText.substring(0, differentiatedText.length() - 1);
             }
 

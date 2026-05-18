@@ -54,6 +54,10 @@ public class Media {
     public static Image imgLimestoneWand;
     public static Image imgTrident;
     public static Image imgFireRelicOne;
+    public static Image imgIceRelicOne;
+    public static Image imgStormRelicOne;
+    public static Image imgWaterRelicOne;
+    public static Image imgEarthRelicOne;
     public static Image imgGold;
     public static SpriteSheet sheetCreatureFlameLutinLeft;
     public static SpriteSheet sheetCreatureFlameLutinRight;
@@ -65,10 +69,30 @@ public class Media {
     public static SpriteSheet sheetCreatureRiverLutinRight;
     public static SpriteSheet sheetCreatureCloudLutinLeft;
     public static SpriteSheet sheetCreatureCloudLutinRight;
+    public static SpriteSheet sheetCreatureTerrapyreLeft;
+    public static SpriteSheet sheetCreatureTerrapyreRight;
+    public static SpriteSheet sheetCreatureFrostbiteLeft;
+    public static SpriteSheet sheetCreatureFrostbiteRight;
+    public static SpriteSheet sheetCreatureVoltigerLeft;
+    public static SpriteSheet sheetCreatureVoltigerRight;
     public static SpriteSheet sheetWizardLeft;
     public static SpriteSheet sheetWizardRight;
     public static SpriteSheet sheetWizardWalkingLeft;
     public static SpriteSheet sheetWizardWalkingRight;
+    public static SpriteSheet sheetSpellBubbleBurst;
+    public static SpriteSheet sheetSpellFireball;
+    public static SpriteSheet sheetSpellOrb;
+    public static SpriteSheet sheetSpellSnowball;
+    public static SpriteSheet sheetSpellSparkShock;
+    public static SpriteSheet sheetSpellThornPrickLeft;
+    public static SpriteSheet sheetSpellThornPrickRight;
+    public static SpriteSheet sheetSpellDazzle;
+    public static SpriteSheet sheetSpellDrizzle;
+    public static SpriteSheet sheetSpellHeatwave;
+    public static SpriteSheet sheetSpellPollenCloud;
+    public static SpriteSheet sheetSpellSnowstorm;
+    public static SpriteSheet sheetSpellWindSlash;
+    public static SpriteSheet sheetSpellCapture;
 
     public static void loadImages() throws SlickException {
         imgButton = new Image("res/buttonGray.png");
@@ -84,6 +108,12 @@ public class Media {
         sheetCreatureRiverLutinRight = new SpriteSheet(new Image("res/creatureRiverLutinRight.png"), 284, 284);
         sheetCreatureCloudLutinLeft = new SpriteSheet(new Image("res/creatureCloudLutinLeft.png"), 284, 284);
         sheetCreatureCloudLutinRight = new SpriteSheet(new Image("res/creatureCloudLutinRight.png"), 284, 284);
+        sheetCreatureTerrapyreLeft = new SpriteSheet(new Image("res/creatureTerrapyreLeft.png"), 284, 284);
+        sheetCreatureTerrapyreRight = new SpriteSheet(new Image("res/creatureTerrapyreRight.png"), 284, 284);
+        sheetCreatureFrostbiteLeft = new SpriteSheet(new Image("res/creatureFrostbiteLeft.png"), 284, 284);
+        sheetCreatureFrostbiteRight = new SpriteSheet(new Image("res/creatureFrostbiteRight.png"), 284, 284);
+        sheetCreatureVoltigerLeft = new SpriteSheet(new Image("res/creatureVoltigerLeft.png"), 284, 284);
+        sheetCreatureVoltigerRight = new SpriteSheet(new Image("res/creatureVoltigerRight.png"), 284, 284);
         sheetWizardLeft = new SpriteSheet(new Image("res/wizardIdleLeft.png"), 284, 284);
         sheetWizardRight = new SpriteSheet(new Image("res/wizardIdleRight.png"), 284, 284);
         sheetWizardWalkingLeft = new SpriteSheet(new Image("res/wizardWalkingLeft.png"), 284, 284);
@@ -124,7 +154,25 @@ public class Media {
         imgLimestoneWand = new Image("res/itemLimestoneWand.png");
         imgTrident = new Image("res/itemTridentWand.png");
         imgFireRelicOne = new Image("res/itemFireRelicOne.png");
+        imgIceRelicOne = new Image("res/itemIceRelicOne.png");
+        imgStormRelicOne = new Image("res/itemStormRelicOne.png");
+        imgWaterRelicOne = new Image("res/itemWaterRelicOne.png");
+        imgEarthRelicOne = new Image("res/itemEarthRelicOne.png");
         imgGold = new Image("res/itemGold.png");
+        sheetSpellBubbleBurst = new SpriteSheet(new Image("res/singleSpellBubbleBurst.png"), 140, 140);
+        sheetSpellFireball = new SpriteSheet(new Image("res/singleSpellFireball.png"), 140, 140);
+        sheetSpellOrb = new SpriteSheet(new Image("res/singleSpellOrb.png"), 140, 140);
+        sheetSpellSnowball = new SpriteSheet(new Image("res/singleSpellSnowball.png"), 140, 140);
+        sheetSpellSparkShock = new SpriteSheet(new Image("res/singleSpellSparkShock.png"), 140, 140);
+        sheetSpellThornPrickLeft = new SpriteSheet(new Image("res/singleSpellThornPrickLeftFacing.png"), 140, 140);
+        sheetSpellThornPrickRight = new SpriteSheet(new Image("res/singleSpellThornPrickRightFacing.png"), 140, 140);
+        sheetSpellDazzle = new SpriteSheet(new Image("res/areaSpellDazzle.png"), 540, 540);
+        sheetSpellDrizzle = new SpriteSheet(new Image("res/areaSpellDrizzle.png"), 540, 540);
+        sheetSpellHeatwave = new SpriteSheet(new Image("res/areaSpellHeatwave.png"), 540, 540);
+        sheetSpellPollenCloud = new SpriteSheet(new Image("res/areaSpellPollenCloud.png"), 540, 540);
+        sheetSpellSnowstorm = new SpriteSheet(new Image("res/areaSpellSnowstorm.png"), 540, 540);
+        sheetSpellWindSlash = new SpriteSheet(new Image("res/areaSpellWindSlash.png"), 540, 540);
+        sheetSpellCapture = new SpriteSheet(new Image("res/singleSpellCapture.png"), 280, 280);
     }
 
     public static final int LEFT = 0;
@@ -175,10 +223,10 @@ public class Media {
         g.drawString(str, adjustedX, adjustedY);
     }
 
-    public static void drawShadowedString(String str, float x, float y, int xAlign, int yAlign, TrueTypeFont font, Graphics g) {
-        g.setColor(Color.black);
+    public static void drawShadowedString(String str, float x, float y, int xAlign, int yAlign, TrueTypeFont font, Color base, Color shadow, Graphics g) {
+        g.setColor(shadow);
         drawAlignedString(str, x - 2, y - 2, xAlign, yAlign, font, g);
-        g.setColor(Color.white);
+        g.setColor(base);
         drawAlignedString(str, x, y, xAlign, yAlign, font, g);
     }
 }

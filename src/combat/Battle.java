@@ -17,7 +17,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import popup.message.BattleAnnouncement;
 import popup.message.DebugMessage;
 import world.World;
-
 import static core.Main.getScreenWidth;
 import static core.Main.getScreenHeight;
 import static core.state.BattleState.developerMode;
@@ -44,6 +43,11 @@ public class Battle implements Values {
     private SwitchChoiceButton switchToTopButton;
     private SwitchChoiceButton switchToBottomButton;
     private CancelSwitchButton cancelSwitchButton;
+    private double animationTimer;
+    private int animationTick;
+    private int rightChosenAttack;
+    private double rightCost;
+    private int spellMovementTimer;
 
     public Battle(Team left, Team right, StateBasedGame sbg) {
         this.left = left;
@@ -106,6 +110,8 @@ public class Battle implements Values {
                 case LEFT_CHARGING:
                     left.rechargeEnergy();
                     battleStep = BattleStep.LEFT_DECIDING;
+                    animationTimer = 0;
+                    spellMovementTimer = 0;
                     break;
                 case LEFT_DECIDING:
                     attackChoiceButtons[0][0].updateAttack(left.getActiveUnit().getAttack(0));
@@ -118,62 +124,90 @@ public class Battle implements Values {
                         if (question.correctAnswerSubmitted()) {
                             battleStep = BattleStep.LEFT_ATTACKING;
                             leftMissedAttack = false;
+                            if (lastChosenAttack < 4) {
+                                left.spendEnergy(left.getActiveUnit().getAttackCost(lastChosenAttack));
+                                addPopup(new BattleAnnouncement(left.getActiveUnit().getName() + " used " + left.getActiveUnit().getAttack(lastChosenAttack).getName()));
+                            }
+                            waitTimer = SPELL_DELAY;
                         }
                         else if (question.incorrectAnswerSubmitted()) {
                             battleStep = BattleStep.LEFT_ATTACKING;
                             leftMissedAttack = true;
+                            if (lastChosenAttack < 4) {
+                                left.spendEnergy(left.getActiveUnit().getAttackCost(lastChosenAttack));
+                                addPopup(new BattleAnnouncement(left.getActiveUnit().getName() + " used " + left.getActiveUnit().getAttack(lastChosenAttack).getName()));
+                            }
+                            waitTimer = SPELL_DELAY;
                         }
                     }
                     break;
                 case LEFT_ATTACKING:
-                    if (lastChosenAttack == 5) {
-                        if (!leftMissedAttack) {
-                            Player.getPetSelector().addPet(right.getActiveUnit().getEntity());
-                            right.getActiveUnit().remove();
-                            right.cleanup();
+                    if (waitTimer <= 0) {
+                        if (lastChosenAttack == 5) { //Capture
+                            if (!leftMissedAttack) {
+                                Player.getPetSelector().addPet(right.getActiveUnit().getEntity());
+                                right.getActiveUnit().remove();
+                                right.cleanup();
+                            }
+                            waitTimer = 2 * SPELL_DELAY;
+                            battleStep = BattleStep.RIGHT_CHARGING;
                         }
-                        waitTimer = 180;
-                        battleStep = BattleStep.RIGHT_CHARGING;
-                        break;
+                        else {
+                            left.attack(lastChosenAttack, right, leftMissedAttack);
+                            waitTimer = 2 * SPELL_DELAY;
+                            battleStep = BattleStep.RIGHT_CHARGING;
+                        }
                     }
                     else {
-                        left.attack(lastChosenAttack, right, leftMissedAttack);
-                        left.spendEnergy(left.getActiveUnit().getAttackCost(lastChosenAttack));
-                        waitTimer = 180;
-                        addPopup(new BattleAnnouncement(left.getActiveUnit().getName() + " used " + left.getActiveUnit().getAttack(lastChosenAttack).getName()));
-                        battleStep = BattleStep.RIGHT_CHARGING;
-                        break;
+                        animationTimer += ANIMATION_TIMER_RATE;
+                        if (lastChosenAttack < 4 && animationTimer >= left.getActiveUnit().getAttack(lastChosenAttack).getSheetSize()) {
+                            animationTimer = 0;
+                        }
+                        spellMovementTimer++;
                     }
+                    break;
                 case RIGHT_CHARGING:
                     right.rechargeEnergy();
                     battleStep = BattleStep.RIGHT_DECIDING;
+                    animationTimer = 0;
+                    spellMovementTimer = 0;
                     break;
                 case RIGHT_DECIDING:
                     if (waitTimer <= 0) {
+                        if (!right.hasEnergy(MAIN_AREA_ATTACK_COST)) {
+                            rightChosenAttack = 0;
+                            rightCost = MAIN_SINGLE_ATTACK_COST;
+                        }
+                        else {
+                            if (Math.random() < 0.5) {
+                                rightChosenAttack = 0;
+                                rightCost = MAIN_SINGLE_ATTACK_COST;
+                            }
+                            else {
+                                rightChosenAttack = 1;
+                                rightCost = MAIN_AREA_ATTACK_COST;
+                            }
+                        }
+                        right.spendEnergy(rightCost);
+                        addPopup(new BattleAnnouncement(right.getActiveUnit().getName() + " used " + right.getActiveUnit().getAttack(rightChosenAttack).getName()));
                         battleStep = BattleStep.RIGHT_ATTACKING;
+                        waitTimer = SPELL_DELAY;
                     }
                     break;
                 case RIGHT_ATTACKING:
-                    int rightChosenAttack;
-                    double cost;
-                    if (!right.hasEnergy(MAIN_AREA_ATTACK_COST)) {
-                        rightChosenAttack = 0;
-                        cost = MAIN_SINGLE_ATTACK_COST;
+                    if (waitTimer <= 0) {
+                        right.attack(rightChosenAttack, left, Math.random() < MISS_CHANCE);
+                        waitTimer = SPELL_DELAY;
+                        battleStep = BattleStep.LEFT_CHARGING;
                     }
                     else {
-                        if (Math.random() < 0.5) {
-                            rightChosenAttack = 0;
-                            cost = MAIN_SINGLE_ATTACK_COST;
+                        animationTimer += ANIMATION_TIMER_RATE;
+                        if (animationTimer >= right.getActiveUnit().getAttack(rightChosenAttack).getSheetSize()) {
+                            animationTimer = 0;
                         }
-                        else {
-                            rightChosenAttack = 1;
-                            cost = MAIN_AREA_ATTACK_COST;
-                        }
+                        spellMovementTimer++;
                     }
-                    right.attack(rightChosenAttack, left, Math.random() < MISS_CHANCE);
-                    right.spendEnergy(cost);
-                    addPopup(new BattleAnnouncement(right.getActiveUnit().getName() + " used " + right.getActiveUnit().getAttack(rightChosenAttack).getName()));
-                    battleStep = BattleStep.LEFT_CHARGING;
+                    break;
             }
 
             if (right.hasLost()) {
@@ -230,6 +264,9 @@ public class Battle implements Values {
                 addPopup(new DebugMessage("HP: " + u.getCurHealth() + "/" + u.getMaxHealth(), 12));
                 addPopup(new DebugMessage("Energy: " + right.getEnergy() + "/" + MAX_ENERGY, 13));
             }
+
+            addPopup(new DebugMessage("animationTimer: " + animationTimer, 15));
+            addPopup(new DebugMessage("animationTick: " + animationTick, 16));
         }
 
         left.drawUI(g);
@@ -239,22 +276,41 @@ public class Battle implements Values {
             question.render(g, gc);
         }
 
-        if (battleStep == BattleStep.LEFT_DECIDING) {
-            attackChoiceButtons[0][0].render(g, gc);
-            attackChoiceButtons[0][1].render(g, gc);
-            attackChoiceButtons[1][0].render(g, gc);
-            attackChoiceButtons[1][1].render(g, gc);
-            switchButton.render(g, gc);
-            captureButton.render(g, gc);
-        }
-        else if (battleStep == BattleStep.LEFT_SWITCHING) {
-            if (left.getWaitingUnitOne() != null) {
-                switchToTopButton.render(g, gc);
-            }
-            if (left.getWaitingUnitTwo() != null){
-                switchToBottomButton.render(g, gc);
-            }
-            cancelSwitchButton.render(g, gc);
+        animationTick = (int) animationTimer;
+
+        switch (battleStep) {
+            case LEFT_DECIDING:
+                attackChoiceButtons[0][0].render(g, gc);
+                attackChoiceButtons[0][1].render(g, gc);
+                attackChoiceButtons[1][0].render(g, gc);
+                attackChoiceButtons[1][1].render(g, gc);
+                switchButton.render(g, gc);
+                captureButton.render(g, gc);
+                break;
+            case LEFT_SWITCHING:
+                if (left.getWaitingUnitOne() != null) {
+                    switchToTopButton.render(g, gc);
+                }
+                if (left.getWaitingUnitTwo() != null){
+                    switchToBottomButton.render(g, gc);
+                }
+                cancelSwitchButton.render(g, gc);
+                break;
+            case LEFT_ATTACKING:
+                if (waitTimer > SPELL_DELAY - SPELL_EFFECT_DURATION && lastChosenAttack < 4) {
+                    left.getActiveUnit().getAttack(lastChosenAttack).render(g, true, animationTick, spellMovementTimer);
+                }
+                else if (waitTimer > 0 && lastChosenAttack == 5) { //Capture
+                    float x = (getScreenWidth() * 0.15f + 284/2) + (spellMovementTimer * 20);
+                    Image image = Media.sheetSpellCapture.getSprite(0, 0);
+                    image.draw(x - image.getWidth() / 2, getScreenHeight() * 0.45f - image.getHeight() / 2);
+                }
+                break;
+            case RIGHT_ATTACKING:
+                if (waitTimer > SPELL_DELAY - SPELL_EFFECT_DURATION) {
+                    right.getActiveUnit().getAttack(rightChosenAttack).render(g, false, animationTick, spellMovementTimer);
+                }
+                break;
         }
 
         if (battleOver) {

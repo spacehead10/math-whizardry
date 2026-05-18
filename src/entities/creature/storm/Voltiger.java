@@ -14,8 +14,8 @@ public class Voltiger extends Creature {
         maxHealth = calculateLevelHealth();
         assignAttacks();
         name = "Voltiger";
-        sheetLeft = null;
-        sheetRight = null;
+        sheetLeft = Media.sheetCreatureVoltigerLeft;
+        sheetRight = Media.sheetCreatureVoltigerRight;
         cost = 450;
     }
 

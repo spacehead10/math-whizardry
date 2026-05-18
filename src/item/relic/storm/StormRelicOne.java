@@ -2,6 +2,7 @@ package item.relic.storm;
 
 import combat.attack.fire.FireSingleAttackOne;
 import combat.attack.storm.StormSingleAttackOne;
+import core.Media;
 import item.relic.Relic;
 
 public class StormRelicOne extends Relic {
@@ -11,5 +12,6 @@ public class StormRelicOne extends Relic {
         attack = StormSingleAttackOne.class;
         description.add("This Relic of ??? grants the user");
         description.add("some basic Storm powers.");
+        image = Media.imgStormRelicOne.getScaledCopy(0.5f);
     }
 }

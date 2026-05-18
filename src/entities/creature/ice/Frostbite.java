@@ -14,8 +14,8 @@ public class Frostbite extends Creature {
         maxHealth = calculateLevelHealth();
         assignAttacks();
         name = "Frostbite";
-        sheetLeft = null;
-        sheetRight = null;
+        sheetLeft = Media.sheetCreatureFrostbiteLeft;
+        sheetRight = Media.sheetCreatureFrostbiteRight;
         cost = 450;
     }
 

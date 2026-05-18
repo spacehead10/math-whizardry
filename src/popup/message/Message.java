@@ -23,10 +23,14 @@ public class Message extends PopupObject implements Values {
     }
 
     @Override public void render(Graphics g) {
+        Color shadow;
         if (fading) {
             color = new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (getPercentTimeLeft() * 255));
+            shadow = new Color(0, 0, 0, (int) (getPercentTimeLeft() * 255));
         }
-        g.setColor(color);
-        Media.drawAlignedString(text, x, y, xAlign, yAlign, font, g);
+        else {
+            shadow = new Color(0, 0, 0);
+        }
+        Media.drawShadowedString(text, x, y, xAlign, yAlign, font, color, shadow, g);
     }
 }

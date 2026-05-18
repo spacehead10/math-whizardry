@@ -14,8 +14,8 @@ public class Terrapyre extends Creature {
         maxHealth = calculateLevelHealth();
         assignAttacks();
         name = "Terrapyre";
-        sheetLeft = null;
-        sheetRight = null;
+        sheetLeft = Media.sheetCreatureTerrapyreLeft;
+        sheetRight = Media.sheetCreatureTerrapyreRight;
         cost = 450;
     }
 
