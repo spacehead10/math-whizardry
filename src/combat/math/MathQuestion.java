@@ -228,6 +228,9 @@ public class MathQuestion implements Values {
             while (!correctText.isEmpty() && correctText.charAt(correctText.length() - 1) == '+') {
                 correctText = correctText.substring(0, correctText.length() - 1);
             }
+            if (correctText.isEmpty()) {
+                correctText = "0";
+            }
 
             answers[correctAnswerIndex] = new AnswerChoice(correctText, true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
         }
@@ -672,6 +675,9 @@ public class MathQuestion implements Values {
             while (!differentiatedText.isEmpty() && differentiatedText.charAt(differentiatedText.length() - 1) == '+') {
                 differentiatedText = differentiatedText.substring(0, differentiatedText.length() - 1);
             }
+            if (differentiatedText.isEmpty()) {
+                differentiatedText = "0";
+            }
 
             int j = randomIntInRange(0, 1);
             answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(differentiatedText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
@@ -689,7 +695,6 @@ public class MathQuestion implements Values {
             String differentiatedWithCText = "";
             for (int i = 0; i < length; i++) {
                 if (length == 1 && differentiatedWithCCoeffs[0] == 0) {
-                    differentiatedWithCText = "0";
                     break;
                 }
                 if (differentiatedWithCCoeffs[i] > 0 || length == 1) {

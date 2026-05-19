@@ -8,8 +8,11 @@ import entities.Entity;
 import entities.creature.Creature;
 import entities.creature.earth.GardenLutin;
 import entities.creature.fire.FlameLutin;
+import entities.creature.fire.Terrapyre;
 import entities.creature.ice.FrostLutin;
+import entities.creature.ice.Frostbite;
 import entities.creature.storm.CloudLutin;
+import entities.creature.storm.Voltiger;
 import entities.creature.water.RiverLutin;
 import entities.player.Player;
 import org.newdawn.slick.Color;
@@ -296,6 +299,15 @@ public class Team implements Values {
             else {
                 return new FrostLutin();
             }
+        }
+        else if (mainCreature instanceof Terrapyre) {
+            return new Terrapyre();
+        }
+        else if (mainCreature instanceof Frostbite) {
+            return new Frostbite();
+        }
+        else if (mainCreature instanceof Voltiger) {
+            return new Voltiger();
         }
         else {
             if (allyTypeRNG < 0.2) {

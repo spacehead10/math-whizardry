@@ -4,7 +4,9 @@ import core.Values;
 import entities.creature.Creature;
 import entities.creature.earth.GardenLutin;
 import entities.creature.fire.FlameLutin;
+import entities.creature.fire.Terrapyre;
 import entities.creature.ice.FrostLutin;
+import entities.creature.ice.Frostbite;
 import entities.creature.storm.CloudLutin;
 import entities.creature.water.RiverLutin;
 import org.newdawn.slick.Graphics;
@@ -95,42 +97,44 @@ public class Cell implements Values {
     public void spawnEnemy(Biome biome) {
         if (terrain instanceof Ground && ((Ground) terrain).isEnemySpawn()) {
             double rng = Math.random();
-            switch (biome.getName()) {
-                case "Caldera Castle":
-                    if (rng < 0.8) {
-                        spawnedCreature = new FlameLutin();
-                    }
-                    else {
-                        spawnedCreature = new CloudLutin();
-                    }
-                    break;
-                case "Permafrost Glaciers":
-                    if (rng < 0.6) {
-                        spawnedCreature = new FrostLutin();
-                    }
-                    else if (rng < 0.9) {
-                        spawnedCreature = new RiverLutin();
-                    }
-                    else {
-                        spawnedCreature = new GardenLutin();
-                    }
-                    break;
-                default:
-                    if (rng < 0.2) {
-                        spawnedCreature = new FlameLutin();
-                    }
-                    else if (rng < 0.4) {
-                        spawnedCreature = new RiverLutin();
-                    }
-                    else if (rng < 0.6) {
-                        spawnedCreature = new CloudLutin();
-                    }
-                    else if (rng < 0.8) {
-                        spawnedCreature = new FrostLutin();
-                    }
-                    else {
-                        spawnedCreature = new GardenLutin();
-                    }
+            if (biome == World.calderaCastle()) {
+                if (rng < 0.6) {
+                    spawnedCreature = new FlameLutin();
+                }
+                else if (rng < 0.9) {
+                    spawnedCreature = new CloudLutin();
+                }
+                else {
+                    spawnedCreature = new Terrapyre();
+                }
+            }
+            else if (biome == World.permafrostGlaciers()) {
+                if (rng < 0.6) {
+                    spawnedCreature = new FrostLutin();
+                }
+                else if (rng < 0.9) {
+                    spawnedCreature = new RiverLutin();
+                }
+                else {
+                    spawnedCreature = new Frostbite();
+                }
+            }
+            else {
+                if (rng < 0.2) {
+                    spawnedCreature = new FlameLutin();
+                }
+                else if (rng < 0.4) {
+                    spawnedCreature = new RiverLutin();
+                }
+                else if (rng < 0.6) {
+                    spawnedCreature = new CloudLutin();
+                }
+                else if (rng < 0.8) {
+                    spawnedCreature = new FrostLutin();
+                }
+                else {
+                    spawnedCreature = new GardenLutin();
+                }
             }
             spawnedCreatureUnit = spawnedCreature.getNewWorldUnit();
             spawnedCreatureUnit.setLocation(getX() + getWidth() / 2, getY() + getHeight() / 2);

@@ -72,7 +72,7 @@ public interface Values {
 
     float WORLD_UNIT_SCALE = 0.66f;
 
-    float PLAYER_SPEED = 5;
+    float PLAYER_SPEED = 4;
 
     int SPAWN_COOLDOWN = 3600;
 
