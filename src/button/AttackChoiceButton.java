@@ -59,9 +59,22 @@ public class AttackChoiceButton extends Button {
 
         if (attack != null) {
             g.setColor(Color.white);
-            Media.drawAlignedString("Energy: " + battle.getLeft().getEnergy() + "/" + battle.getLeft().getActiveUnit().getAttackCost(spellIndex), x + SPELL_BUTTON_WIDTH / 2, y, Media.CENTER, Media.TOP, Media.defaultFontMedium, g);
+            double curEnergy = battle.getLeft().getEnergy();
+            double energyRequired = battle.getLeft().getActiveUnit().getAttackCost(spellIndex);
+
+            Media.drawAlignedString("Energy: " + (int) curEnergy + "/" + (int) energyRequired, x + SPELL_BUTTON_WIDTH / 2, y, Media.CENTER, Media.TOP, Media.defaultFontMedium, g);
             Media.drawAlignedString(attack.getNameOfElement(), x + SPELL_BUTTON_WIDTH / 2, y + SPELL_BUTTON_HEIGHT / 2, Media.CENTER, Media.CENTER, Media.defaultFontMedium, g);
             Media.drawAlignedString(attack.getName(), x + SPELL_BUTTON_WIDTH / 2, y + SPELL_BUTTON_HEIGHT, Media.CENTER, Media.BOTTOM, Media.defaultFontLarge, g);
+
+            if (curEnergy < energyRequired) {
+                g.setColor(new Color(0, 0, 0, 127));
+                float shadowHeight = h * (float) (1 - curEnergy / energyRequired);
+                g.fillRect(x, y + h - shadowHeight, w, shadowHeight);
+            }
+        }
+        else {
+            g.setColor(new Color(0, 0, 0, 127));
+            g.fillRect(x, y, w, h);
         }
     }
 

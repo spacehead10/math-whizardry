@@ -8,11 +8,8 @@ import core.Media;
 import core.Values;
 import entities.player.Player;
 import item.currency.Gold;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+import org.newdawn.slick.*;
 import combat.attack.Attack;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 import popup.message.BattleAnnouncement;
 import popup.message.DebugMessage;
@@ -118,6 +115,8 @@ public class Battle implements Values {
                     attackChoiceButtons[0][1].updateAttack(left.getActiveUnit().getAttack(1));
                     attackChoiceButtons[1][0].updateAttack(left.getActiveUnit().getAttack(2));
                     attackChoiceButtons[1][1].updateAttack(left.getActiveUnit().getAttack(3));
+                    switchButton.updateUsable(left.getWaitingUnitOne() != null || left.getWaitingUnitTwo() != null);
+                    captureButton.updateUsable(right.getActiveUnit().getPercentHealth() <= CAPTURE_REQUIREMENT);
                     break;
                 case MATH_QUESTION:
                     if (question != null) {
@@ -295,6 +294,7 @@ public class Battle implements Values {
                     switchToBottomButton.render(g, gc);
                 }
                 cancelSwitchButton.render(g, gc);
+                Media.drawShadowedString("Choose an ally to switch to", getScreenWidth() / 2, 150, Media.CENTER, Media.TOP, Media.defaultFontLarge, Color.white, Color.black, g);
                 break;
             case LEFT_ATTACKING:
                 if (waitTimer > SPELL_DELAY - SPELL_EFFECT_DURATION && lastChosenAttack < 4) {
@@ -323,6 +323,7 @@ public class Battle implements Values {
             if (battleStep == BattleStep.LEFT_DECIDING) {
                 if (developerMode() && key == Input.KEY_K) {
                     (new LightAreaAttackOne(10000, 0)).use(right, false);
+                    battleStep = BattleStep.RIGHT_CHARGING;
                 }
             }
         }
@@ -371,7 +372,9 @@ public class Battle implements Values {
             return;
         }
         if (lastChosenAttack == 4) {
-            battleStep = BattleStep.LEFT_SWITCHING;
+            if (left.getWaitingUnitOne() != null || left.getWaitingUnitTwo() != null) {
+                battleStep = BattleStep.LEFT_SWITCHING;
+            }
         }
         else if (lastChosenAttack == 5) {
             if (right.getActiveUnit().getPercentHealth() <= CAPTURE_REQUIREMENT) {

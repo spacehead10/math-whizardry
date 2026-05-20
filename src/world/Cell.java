@@ -152,7 +152,7 @@ public class Cell implements Values {
             return false;
         }
 
-        boolean enteringFromLeft = player.getX() + player.getWidth() / 2 < getX() && player.getX() + player.getWidth() / 2 + dx > getX();
+        boolean enteringFromLeft = player.getX() + player.getWidth() / 2 < getX() && player.getX() + player.getWidth() / 2 + dx >= getX();
         boolean matchingY = (player.getY() > getY() && player.getY() - player.getHeight() < getY() + getHeight());
         return enteringFromLeft && matchingY;
     }
@@ -162,7 +162,7 @@ public class Cell implements Values {
             return false;
         }
 
-        boolean enteringFromRight = player.getX() - player.getWidth() / 2 > getX() + getWidth() && player.getX() - player.getWidth() / 2 - dx < getX() + getWidth();
+        boolean enteringFromRight = player.getX() - player.getWidth() / 2 > getX() + getWidth() && player.getX() - player.getWidth() / 2 - dx <= getX() + getWidth();
         boolean matchingY = (player.getY() > getY() && player.getY() - player.getHeight() < getY() + getHeight());
         return enteringFromRight && matchingY;
     }
@@ -172,7 +172,7 @@ public class Cell implements Values {
             return false;
         }
 
-        boolean enteringFromTop = player.getY() < getY() + 1 && player.getY() + dy > getY();
+        boolean enteringFromTop = player.getY() < getY() + 1 && player.getY() + dy >= getY();
         boolean matchingX = (player.getX() + player.getWidth() / 2 > getX() && player.getX() - player.getWidth() / 2 < getX() + getWidth());
         return enteringFromTop && matchingX;
     }
@@ -182,7 +182,7 @@ public class Cell implements Values {
             return false;
         }
 
-        boolean enteringFromBottom = player.getY() - player.getHeight() > getY() + getHeight() && player.getY() - player.getHeight() - dy < getY() + getHeight();
+        boolean enteringFromBottom = player.getY() - player.getHeight() > getY() + getHeight() && player.getY() - player.getHeight() - dy <= getY() + getHeight();
         boolean matchingX = (player.getX() + player.getWidth() / 2 > getX() && player.getX() - player.getWidth() / 2 < getX() + getWidth());
         return enteringFromBottom && matchingX;
     }
