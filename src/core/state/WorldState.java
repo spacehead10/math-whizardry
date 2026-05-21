@@ -53,7 +53,7 @@ public class WorldState extends BasicGameState implements Values {
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
-        gc.setShowFPS(true);
+        gc.setShowFPS(false);
         try {
             Media.loadImages();
         }
@@ -175,6 +175,18 @@ public class WorldState extends BasicGameState implements Values {
             openShopButton.mousePressed(x, y);
             openMapButton.mousePressed(x, y);
             quitButton.mousePressed(x, y);
+        }
+    }
+
+    public void mouseWheelMoved(int change) {
+        if (inventoryOpen) {
+            Player.getInventory().mouseWheelMoved(change);
+        }
+        else if (petSelectorOpen) {
+            Player.getPetSelector().mouseWheelMoved(change);
+        }
+        else if (shopOpen) {
+            shop.mouseWheelMoved(change);
         }
     }
 

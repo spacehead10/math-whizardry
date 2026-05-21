@@ -34,41 +34,45 @@ public class ShopButton extends Button {
     }
 
     @Override public void render(Graphics g, GameContainer gc) {
-        super.render(g, gc);
-        int spacing = INVENTORY_SPACING;
-        int indent = INVENTORY_SPACING;
-        x = indent + (w + spacing) * (index % ITEMS_PER_INVENTORY_ROW);
-        y = indent + (h + spacing) * (index / ITEMS_PER_INVENTORY_ROW);
-        g.setColor(Color.white);
-        if (item != null) {
-            Media.drawAlignedString(item.getName(), x + w / 2, y + 20, Media.CENTER, Media.TOP, Media.defaultFontMedium, g);
-        }
-        else if (pet != null) {
-            Media.drawAlignedString(pet.getName(), x + w / 2, y + 20, Media.CENTER, Media.TOP, Media.defaultFontMedium, g);
-        }
-        if (isSelected()) {
-            g.setColor(new Color(255, 255, 255, 64));
-            g.fillRect(x, y, w, h);
-        }
-        g.setColor(Color.white);
-        if (item != null) {
-            Media.drawAlignedString("Cost: " + item.getCost(), x + w - 20, y + h - 20, Media.RIGHT, Media.BOTTOM, Media.defaultFontMedium, g);
-        }
-        else if (pet != null) {
-            Media.drawAlignedString("Cost: " + pet.getCost(), x + w - 20, y + h - 20, Media.RIGHT, Media.BOTTOM, Media.defaultFontMedium, g);
-        }
-        if (item instanceof Wand && Player.getInventory().hasItem(item)) {
-            g.setColor(new Color(0, 0, 0, 127));
-            g.fillRect(x, y, w, h);
+        if (index >= 0 && index < 9) {
+            super.render(g, gc);
+            int spacing = INVENTORY_SPACING;
+            int indent = INVENTORY_SPACING;
+            x = indent + (w + spacing) * (index % ITEMS_PER_INVENTORY_ROW);
+            y = indent + (h + spacing) * (index / ITEMS_PER_INVENTORY_ROW);
+            g.setColor(Color.white);
+            if (item != null) {
+                Media.drawAlignedString(item.getName(), x + w / 2, y + 20, Media.CENTER, Media.TOP, Media.defaultFontMedium, g);
+            }
+            else if (pet != null) {
+                Media.drawAlignedString(pet.getName(), x + w / 2, y + 20, Media.CENTER, Media.TOP, Media.defaultFontMedium, g);
+            }
+            if (isSelected()) {
+                g.setColor(new Color(255, 255, 255, 64));
+                g.fillRect(x, y, w, h);
+            }
+            g.setColor(Color.white);
+            if (item != null) {
+                Media.drawAlignedString("Cost: " + item.getCost(), x + w - 20, y + h - 20, Media.RIGHT, Media.BOTTOM, Media.defaultFontMedium, g);
+            }
+            else if (pet != null) {
+                Media.drawAlignedString("Cost: " + pet.getCost(), x + w - 20, y + h - 20, Media.RIGHT, Media.BOTTOM, Media.defaultFontMedium, g);
+            }
+            if (item instanceof Wand && Player.getInventory().hasItem(item)) {
+                g.setColor(new Color(0, 0, 0, 127));
+                g.fillRect(x, y, w, h);
+            }
         }
     }
 
     @Override public void onClick() {
-        if (isSelected()) {
-            clearSelection();
-        }
-        else {
-            select();
+        if (index >= 0 && index < 9) {
+            if (isSelected()) {
+                clearSelection();
+            }
+            else {
+                select();
+            }
         }
     }
 

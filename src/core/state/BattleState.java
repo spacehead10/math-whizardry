@@ -30,7 +30,7 @@ public class BattleState extends BasicGameState {
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
-        gc.setShowFPS(true);
+        gc.setShowFPS(false);
         try {
             Media.loadImages();
         }

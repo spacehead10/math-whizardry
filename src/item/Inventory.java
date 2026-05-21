@@ -23,11 +23,13 @@ public class Inventory {
     private ItemEquipButton equipButton;
     private Relic equippedRelic;
     private Wand equippedWand;
+    private int scrollOffset;
 
     public Inventory() {
         itemButtons = new ArrayList<>();
         equipButton = new ItemEquipButton(this);
         clearSelection();
+        scrollOffset = 0;
     }
 
     public void render(Graphics g, GameContainer gc) {
@@ -100,6 +102,11 @@ public class Inventory {
                 equipButton.render(g, gc);
             }
         }
+
+        if (itemButtons.size() > 9) {
+            g.setColor(Color.black);
+            Media.drawAlignedString("Use scroll wheel to view all.", 30, 9, Media.LEFT, Media.TOP, Media.defaultFontSmall, g);
+        }
     }
 
     public void mousePressed(int button, int x, int y) {
@@ -111,9 +118,24 @@ public class Inventory {
         }
     }
 
+    public void mouseWheelMoved(int change) {
+        if (itemButtons.size() > 9) {
+            if (change < 0) { //scroll down
+                if (scrollOffset > -((itemButtons.size() - 9) / 3 + 1)) {
+                    scrollOffset--;
+                }
+            }
+            else { //scroll up
+                if (scrollOffset < 0) {
+                    scrollOffset++;
+                }
+            }
+        }
+    }
+
     public void cleanup() {
         for (int i = 0; i < itemButtons.size(); i++) {
-            itemButtons.get(i).setIndex(i);
+            itemButtons.get(i).setIndex(i + 3 * scrollOffset);
         }
         for (int i = 0; i < itemButtons.size(); i++) {
             if (itemButtons.get(i).getItem().isEmpty()) {

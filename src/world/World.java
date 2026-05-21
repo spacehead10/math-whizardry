@@ -28,7 +28,7 @@ public class World implements Values {
         testBiome = new Biome("Biome");
         calderaCastle = new Biome("Caldera Castle");
         permafrostGlaciers = new Biome("Permafrost Glaciers");
-        goToBiome(calderaCastle);
+        goToBiome(testBiome);
         PopupManager.init();
     }
 

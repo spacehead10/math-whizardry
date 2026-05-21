@@ -47,11 +47,12 @@ public class MathQuestion implements Values {
 
         answers = new AnswerChoice[4];
 
-        switch (randomIntInRange(0, 4)) {
+        switch (randomIntInRange(0, 5)) {
             case 0 -> generateDerivPowerQuestion();
             case 1 -> generateDerivTrigQuestion();
             case 2 -> generateDerivExponentialQuestion();
             case 3 -> generateIntegralPowerQuestion();
+            case 4 -> generateIntegralTrigQuestion();
             default -> generateIntegralExponentialQuestion();
         }
 
@@ -297,6 +298,7 @@ public class MathQuestion implements Values {
             baseText = baseText + innerCoeff;
         }
         baseText = baseText + "x)";
+
         questionText = new MathString("What is the derivative of " + baseText + "?");
 
         //Correct answer
@@ -537,14 +539,16 @@ public class MathQuestion implements Values {
         }
     }
 
-    public void generateIntegralPowerQuestion() {
+    public void generateDerivLnQuestion() {
         answers[correctAnswerIndex] = new AnswerChoice("Placeholder correct answer", true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
         for (int i = 0; i < answers.length; i++) {
             if (i != correctAnswerIndex) {
                 answers[i] = new AnswerChoice("Placeholder incorrect answer", false, answerX, answerY + i * (Media.defaultFontMedium.getHeight() + 10));
             }
         }
+    }
 
+    public void generateIntegralPowerQuestion() {
         //Question
         int length = randomIntInRange(1, 3);
 
@@ -717,11 +721,158 @@ public class MathQuestion implements Values {
     }
 
     public void generateIntegralTrigQuestion() {
-        answers[correctAnswerIndex] = new AnswerChoice("Placeholder correct answer", true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
-        for (int i = 0; i < answers.length; i++) {
-            if (i != correctAnswerIndex) {
-                answers[i] = new AnswerChoice("Placeholder incorrect answer", false, answerX, answerY + i * (Media.defaultFontMedium.getHeight() + 10));
+        //Question
+        int innerCoeff = randomIntInRange(2, 9);
+        int outerCoeff = randomIntInRange(1, 5) * innerCoeff;
+        int functionType = randomIntInRange(0, 5);
+
+        String baseText = "" + outerCoeff;
+        baseText = baseText + switch (functionType) {
+            case 0 -> "cos(";
+            case 1 -> "sin(";
+            case 2 -> "sec^{2}(";
+            case 3 -> "csc(";
+            case 4 -> "sec(";
+            default -> "csc^{2}(";
+        };
+        baseText = baseText + innerCoeff + "x)";
+        if (functionType == 3) {
+            baseText = baseText + "cot(" + innerCoeff + "x)";
+        }
+        if (functionType == 4) {
+            baseText = baseText + "tan(" + innerCoeff + "x)";
+        }
+
+        questionText = new MathString("What is the indefinite integral of " + baseText + "?");
+
+        //Correct answer
+        {
+            int correctInner = innerCoeff;
+            int correctOuter = outerCoeff / correctInner;
+
+            String correctText = "";
+            if (functionType == 1 || functionType == 3 || functionType == 5) {
+                correctText = correctText + "-";
             }
+            if (correctOuter > 1) {
+                correctText = correctText + correctOuter;
+            }
+            correctText = correctText + switch (functionType) {
+                case 0 -> "sin(";
+                case 1 -> "cos(";
+                case 2 -> "tan(";
+                case 3 -> "csc(";
+                case 4 -> "sec(";
+                default -> "cot(";
+            };
+            correctText = correctText + correctInner + "x)+C";
+
+            answers[correctAnswerIndex] = new AnswerChoice(correctText, true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
+        }
+
+        //Distractor answers
+        {
+            int negativeInner = innerCoeff;
+            int negativeOuter = outerCoeff / negativeInner;
+
+            String negativeText = "";
+            if (functionType == 0 || functionType == 2 || functionType == 4) {
+                negativeText = negativeText + "-";
+            }
+            if (negativeOuter > 1) {
+                negativeText = negativeText + negativeOuter;
+            }
+            negativeText = negativeText + switch (functionType) {
+                case 0 -> "sin(";
+                case 1 -> "cos(";
+                case 2 -> "tan(";
+                case 3 -> "csc(";
+                case 4 -> "sec(";
+                default -> "cot(";
+            };
+            negativeText = negativeText + negativeInner + "x)+C";
+
+            int j = randomIntInRange(0, 2);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(negativeText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        {
+            int differentiatedOuter = outerCoeff * innerCoeff;
+            int differentiatedInner = innerCoeff;
+
+            String differentiatedWithCText = "";
+            if (functionType == 0 || functionType == 3 || functionType == 5) {
+                differentiatedWithCText = differentiatedWithCText + "-";
+            }
+            if (functionType == 2 || functionType == 5) {
+                differentiatedOuter *= 2;
+            }
+            differentiatedWithCText = differentiatedWithCText + differentiatedOuter;
+            differentiatedWithCText = differentiatedWithCText + switch (functionType) {
+                case 0 -> "sin(";
+                case 1 -> "cos(";
+                case 2 -> "sec^{2}("; //sec^{2}(x) -> 2sec(x)sec(x)tan(x)
+                case 3 -> "[csc^{3}("; //csc(x)cot(x) -> -csc(x)csc^{2}(x)-cot(x)csc(x)cot(x)
+                case 4 -> "[sec^{3}("; //sec(x)tan(x) -> sec(x)sec^{2}(x)+tan(x)sec(x)tan(x)
+                default -> "csc^{2}("; //csc^{2}(x) -> -2csc(x)csc(x)cot(x)
+            };
+            differentiatedWithCText = differentiatedWithCText + differentiatedInner + "x)";
+            if (functionType == 2) {
+                differentiatedWithCText = differentiatedWithCText + "tan(" + differentiatedInner + "x)";
+            }
+            if (functionType == 5) {
+                differentiatedWithCText = differentiatedWithCText + "cot(" + differentiatedInner + "x)";
+            }
+            if (functionType == 3) {
+                differentiatedWithCText = differentiatedWithCText + "+csc(" + differentiatedInner + "x)cot^{2}(" + differentiatedInner + "x)]";
+            }
+            if (functionType == 4) {
+                differentiatedWithCText = differentiatedWithCText + "+sec(" + differentiatedInner + "x)tan^{2}(" + differentiatedInner + "x)]";
+            }
+            differentiatedWithCText = differentiatedWithCText + "+C";
+
+            int j = randomIntInRange(0, 1);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(differentiatedWithCText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        {
+            int negativeDifferentiatedOuter = outerCoeff * innerCoeff;
+            int negativeDifferentiatedInner = innerCoeff;
+
+            String negativeDifferentiatedWithCText = "";
+            if (functionType == 1 || functionType == 2 || functionType == 4) {
+                negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + "-";
+            }
+            if (functionType == 2 || functionType == 5) {
+                negativeDifferentiatedOuter *= 2;
+            }
+            negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + negativeDifferentiatedOuter;
+            negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + switch (functionType) {
+                case 0 -> "sin(";
+                case 1 -> "cos(";
+                case 2 -> "sec^{2}("; //sec^{2}(x) -> 2sec(x)sec(x)tan(x)
+                case 3 -> "[csc^{3}("; //csc(x)cot(x) -> -csc(x)csc^{2}(x)-cot(x)csc(x)cot(x)
+                case 4 -> "[sec^{3}("; //sec(x)tan(x) -> sec(x)sec^{2}(x)+tan(x)sec(x)tan(x)
+                default -> "csc^{2}("; //csc^{2}(x) -> -2csc(x)csc(x)cot(x)
+            };
+            negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + negativeDifferentiatedInner + "x)";
+            if (functionType == 2) {
+                negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + "tan(" + negativeDifferentiatedInner + "x)";
+            }
+            if (functionType == 5) {
+                negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + "cot(" + negativeDifferentiatedInner + "x)";
+            }
+            if (functionType == 3) {
+                negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + "+csc(" + negativeDifferentiatedInner + "x)cot^{2}(" + negativeDifferentiatedInner + "x)]";
+            }
+            if (functionType == 4) {
+                negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + "+sec(" + negativeDifferentiatedInner + "x)tan^{2}(" + negativeDifferentiatedInner + "x)]";
+            }
+            negativeDifferentiatedWithCText = negativeDifferentiatedWithCText + "+C";
+
+            answers[incorrectAnswerIndexes.getFirst()] = new AnswerChoice(negativeDifferentiatedWithCText, false, answerX, answerY + incorrectAnswerIndexes.getFirst() * (Media.defaultFontMedium.getHeight() + 10));
         }
     }
 
@@ -781,6 +932,15 @@ public class MathQuestion implements Values {
             String differentiatedWithCText = differentiatedWithCOuter + "e^{" + differentiatedWithCInner + "x}+C";
 
             answers[incorrectAnswerIndexes.getFirst()] = new AnswerChoice(differentiatedWithCText, false, answerX, answerY + incorrectAnswerIndexes.getFirst() * (Media.defaultFontMedium.getHeight() + 10));
+        }
+    }
+
+    public void generateIntegralLnQuestion() {
+        answers[correctAnswerIndex] = new AnswerChoice("Placeholder correct answer", true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
+        for (int i = 0; i < answers.length; i++) {
+            if (i != correctAnswerIndex) {
+                answers[i] = new AnswerChoice("Placeholder incorrect answer", false, answerX, answerY + i * (Media.defaultFontMedium.getHeight() + 10));
+            }
         }
     }
 

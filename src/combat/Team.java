@@ -52,11 +52,11 @@ public class Team implements Values {
     }
 
     public void drawMembers(Graphics g) {
-        if (activeUnit != null) {
-            activeUnit.draw(g);
-        }
         if (waitingUnitOne != null) {
             waitingUnitOne.draw(g);
+        }
+        if (activeUnit != null) {
+            activeUnit.draw(g);
         }
         if (waitingUnitTwo != null) {
             waitingUnitTwo.draw(g);

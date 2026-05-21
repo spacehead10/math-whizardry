@@ -25,6 +25,7 @@ public class PetSelector implements Values {
     private PetEquipButton equipButtonOne;
     private PetEquipButton equipButtonTwo;
     private Creature[] petsInTeam;
+    private int scrollOffset;
 
     public PetSelector() {
         petButtons = new ArrayList<>();
@@ -32,6 +33,7 @@ public class PetSelector implements Values {
         equipButtonTwo = new PetEquipButton(this, 1);
         petsInTeam = new Creature[2];
         clearSelection();
+        scrollOffset = 0;
     }
 
     public void render(Graphics g, GameContainer gc) {
@@ -130,6 +132,11 @@ public class PetSelector implements Values {
                 }
             }
         }
+
+        if (petButtons.size() > 9) {
+            g.setColor(Color.black);
+            Media.drawAlignedString("Use scroll wheel to view all.", 30, 9, Media.LEFT, Media.TOP, Media.defaultFontSmall, g);
+        }
     }
 
     public void mousePressed(int button, int x, int y) {
@@ -142,9 +149,24 @@ public class PetSelector implements Values {
         }
     }
 
+    public void mouseWheelMoved(int change) {
+        if (petButtons.size() > 9) {
+            if (change < 0) { //scroll down
+                if (scrollOffset > -((petButtons.size() - 9) / 3 + 1)) {
+                    scrollOffset--;
+                }
+            }
+            else { //scroll up
+                if (scrollOffset < 0) {
+                    scrollOffset++;
+                }
+            }
+        }
+    }
+
     public void cleanup() {
         for (int i = 0; i < petButtons.size(); i++) {
-            petButtons.get(i).setIndex(i);
+            petButtons.get(i).setIndex(i + 3 * scrollOffset);
         }
     }
 
