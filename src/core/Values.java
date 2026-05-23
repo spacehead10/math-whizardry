@@ -98,4 +98,6 @@ public interface Values {
     int SPELL_DELAY = 60;
     int SPELL_EFFECT_DURATION = 48;
     float PROJECTILE_SPEED = 25;
+
+    int ENTER_BATTLE_DELAY = 120;
 }

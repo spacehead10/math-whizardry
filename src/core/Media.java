@@ -16,6 +16,12 @@ public class Media {
     public static final TrueTypeFont debugFont = new TrueTypeFont(new Font("Roboto Mono", Font.PLAIN, 16), false);
 
     public static Image imgButton;
+    public static Image imgButtonClose;
+    public static Image imgButtonIconInventory;
+    public static Image imgButtonIconTeamSelector;
+    public static Image imgButtonIconShop;
+    public static Image imgButtonIconTeleport;
+    public static Image imgButtonIconQuit;
     public static Image imgBattleBGFire;
     public static Image imgBattleBGIce;
     public static Image imgCalderaCastleGround;
@@ -59,6 +65,7 @@ public class Media {
     public static Image imgWaterRelicOne;
     public static Image imgEarthRelicOne;
     public static Image imgGold;
+    public static Image imgAggro;
     public static SpriteSheet sheetCreatureFlameLutinLeft;
     public static SpriteSheet sheetCreatureFlameLutinRight;
     public static SpriteSheet sheetCreatureGardenLutinLeft;
@@ -96,6 +103,12 @@ public class Media {
 
     public static void loadImages() throws SlickException {
         imgButton = new Image("res/buttonGray.png");
+        imgButtonClose = new Image("res/buttonClose.png");
+        imgButtonIconInventory = new Image("res/buttonIconInventory.png");
+        imgButtonIconTeamSelector = new Image("res/buttonIconTeamSelector.png");
+        imgButtonIconShop = new Image("res/buttonIconShop.png");
+        imgButtonIconTeleport = new Image("res/buttonIconTeleport.png");
+        imgButtonIconQuit = new Image("res/buttonIconQuit.png");
         imgBattleBGFire = new Image("res/battleBGFire.png");
         imgBattleBGIce = new Image("res/battleBGIce.png");
         sheetCreatureFlameLutinLeft = new SpriteSheet(new Image("res/creatureFlameLutinLeft.png"), 284, 284);
@@ -173,6 +186,7 @@ public class Media {
         sheetSpellSnowstorm = new SpriteSheet(new Image("res/areaSpellSnowstorm.png"), 540, 540);
         sheetSpellWindSlash = new SpriteSheet(new Image("res/areaSpellWindSlash.png"), 540, 540);
         sheetSpellCapture = new SpriteSheet(new Image("res/singleSpellCapture.png"), 280, 280);
+        imgAggro = new Image("res/aggro.png");
     }
 
     public static final int LEFT = 0;

@@ -25,6 +25,12 @@ public abstract class Button implements Values {
             body.draw(x, y, w, h);
         }
         if (icon != null) {
+            if (w < h) {
+                icon = icon.getScaledCopy(0.67f * w / icon.getWidth());
+            }
+            else {
+                icon = icon.getScaledCopy(0.67f * h / icon.getHeight());
+            }
             icon.draw(x + w/2 - icon.getWidth()/2, y + h/2 - icon.getHeight()/2);
         }
         if (!text.isEmpty()) {

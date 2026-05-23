@@ -1,6 +1,7 @@
 package world.biome;
 
 import core.Values;
+import core.state.WorldState;
 import org.newdawn.slick.Graphics;
 import world.Cell;
 import world.Room;
@@ -30,10 +31,12 @@ public class Biome implements Values {
     }
 
     public void update() {
-        for (int i = 0; i < BIOME_MAX_ROOMS_X; i++) {
-            for (int j = 0; j < BIOME_MAX_ROOMS_Y; j++) {
-                if (rooms[i][j] != null) {
-                    rooms[i][j].updateUnloaded();
+        if (!WorldState.isEnteringBattle()) {
+            for (int i = 0; i < BIOME_MAX_ROOMS_X; i++) {
+                for (int j = 0; j < BIOME_MAX_ROOMS_Y; j++) {
+                    if (rooms[i][j] != null) {
+                        rooms[i][j].updateUnloaded();
+                    }
                 }
             }
         }

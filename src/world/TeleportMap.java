@@ -27,7 +27,7 @@ public class TeleportMap implements Values {
         g.setColor(Color.white);
         g.fillRect(10, 10, getScreenWidth() - 20, getScreenHeight() - 20);
         g.setColor(Color.black);
-        Media.drawAlignedString("Teleport to Biome", getScreenWidth() / 2, 20, Media.CENTER, Media.TOP, Media.defaultFontLarge, g);
+        Media.drawAlignedString("Travel to Biome", getScreenWidth() / 2, 20, Media.CENTER, Media.TOP, Media.defaultFontLarge, g);
         calderaCastleButton.render(g, gc);
         permafrostGlaciersButton.render(g, gc);
     }

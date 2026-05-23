@@ -1,6 +1,8 @@
 package world;
 
+import core.Media;
 import core.Values;
+import core.state.WorldState;
 import entities.creature.Creature;
 import entities.creature.earth.GardenLutin;
 import entities.creature.fire.FlameLutin;
@@ -10,6 +12,7 @@ import entities.creature.ice.Frostbite;
 import entities.creature.storm.CloudLutin;
 import entities.creature.water.RiverLutin;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import popup.message.DebugMessage;
 import world.biome.Biome;
 import world.terrain.Ground;
@@ -52,19 +55,23 @@ public class Cell implements Values {
     }
 
     public void update() {
-        if (spawnedCreatureUnit != null) {
-            if (dist(spawnedCreatureUnit.getX(), spawnedCreatureUnit.getY(), World.getPlayerUnit().getX(), World.getPlayerUnit().getY()) < AGGRO_RADIUS) {
-                World.enterBattle(spawnedCreature);
+        if (WorldState.isEnteringBattle()) {
+            if (WorldState.getEnterBattleTimer() <= 0 && hasAggro()) {
                 spawnedCreature = null;
                 spawnedCreatureUnit = null;
                 hasCreature = false;
             }
         }
+        else {
+            if (hasAggro()) {
+                World.enterBattle(spawnedCreature);
+            }
 
-        if (terrain instanceof Ground && ((Ground) terrain).isTPStart()) {
-            PlayerWorldUnit player = World.getPlayerUnit();
-            if (player.getX() >= getX() && player.getX() <= getX() + getWidth() && player.getY() >= getY() && player.getY() <= getY() + getHeight()) {
-                World.getCurrentBiome().setCurrentRoom(((Ground) terrain).getTPZoneType());
+            if (terrain instanceof Ground && ((Ground) terrain).isTPStart()) {
+                PlayerWorldUnit player = World.getPlayerUnit();
+                if (player.getX() >= getX() && player.getX() <= getX() + getWidth() && player.getY() >= getY() && player.getY() <= getY() + getHeight()) {
+                    World.getCurrentBiome().setCurrentRoom(((Ground) terrain).getTPZoneType());
+                }
             }
         }
     }
@@ -91,6 +98,11 @@ public class Cell implements Values {
     public void renderCreature(Graphics g) {
         if (spawnedCreatureUnit != null) {
             spawnedCreatureUnit.draw(g);
+        }
+
+        if (WorldState.isEnteringBattle() && hasAggro()) {
+            Image aggroAlert = Media.imgAggro.getScaledCopy(1.5f);
+            aggroAlert.draw(spawnedCreatureUnit.getX() - aggroAlert.getWidth() / 2, spawnedCreatureUnit.getY() - spawnedCreatureUnit.getHeight() - aggroAlert.getHeight());
         }
     }
 
@@ -185,6 +197,10 @@ public class Cell implements Values {
         boolean enteringFromBottom = player.getY() - player.getHeight() > getY() + getHeight() && player.getY() - player.getHeight() - dy <= getY() + getHeight();
         boolean matchingX = (player.getX() + player.getWidth() / 2 > getX() && player.getX() - player.getWidth() / 2 < getX() + getWidth());
         return enteringFromBottom && matchingX;
+    }
+
+    public boolean hasAggro() {
+        return (spawnedCreatureUnit != null) && (dist(spawnedCreatureUnit.getX(), spawnedCreatureUnit.getY(), World.getPlayerUnit().getX(), World.getPlayerUnit().getY()) < AGGRO_RADIUS);
     }
 
     public float getX() {

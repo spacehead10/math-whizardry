@@ -50,6 +50,8 @@ public class WorldState extends BasicGameState implements Values {
     private OpenMapButton openMapButton;
     private CloseButton closeButton;
     private QuitButton quitButton;
+    private static boolean enteringBattle;
+    private static int enterBattleTimer;
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
@@ -74,6 +76,9 @@ public class WorldState extends BasicGameState implements Values {
         petSelectorOpen = false;
         shopOpen = false;
         mapOpen = false;
+        enteringBattle = false;
+
+        enterBattleTimer = ENTER_BATTLE_DELAY;
 
         openInventoryButton = new OpenInventoryButton(getScreenWidth() - DEFAULT_SQUARE_BUTTON_SIZE - 10, 10, this);
         openPetSelectorButton = new OpenPetSelectorButton(getScreenWidth() - DEFAULT_SQUARE_BUTTON_SIZE - 10, 10 + DEFAULT_SQUARE_BUTTON_SIZE + 10, this);
@@ -85,14 +90,24 @@ public class WorldState extends BasicGameState implements Values {
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         world.update(gc);
-        if (inventoryOpen) {
-            Player.getInventory().cleanup();
+        if (enteringBattle) {
+            if (enterBattleTimer > 0) {
+                enterBattleTimer--;
+            }
+            else {
+                sbg.enterState(Main.BATTLE_ID);
+            }
         }
-        else if (petSelectorOpen) {
-            Player.getPetSelector().cleanup();
-        }
-        else if (shopOpen) {
-            shop.cleanup();
+        else {
+            if (inventoryOpen) {
+                Player.getInventory().cleanup();
+            }
+            else if (petSelectorOpen) {
+                Player.getPetSelector().cleanup();
+            }
+            else if (shopOpen) {
+                shop.cleanup();
+            }
         }
     }
 
@@ -124,57 +139,59 @@ public class WorldState extends BasicGameState implements Values {
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        enteringBattle = false;
+        enterBattleTimer = ENTER_BATTLE_DELAY;
     }
 
     public void leave(GameContainer gc, StateBasedGame sbg) {
-        closeInventory();
-        closePetSelector();
-        closeShop();
-        closeMap();
     }
 
     public void keyPressed(int key, char c) {
-        switch (key) {
-            case Input.KEY_SEMICOLON:
-                BattleState.toggleDeveloperMode();
-                break;
-            case Input.KEY_M:
-                if (developerMode()) {
-                    Player.getInventory().addItem(Gold.class, 30);
-                }
-                break;
-            case Input.KEY_L:
-                if (developerMode()) {
-                    World.getPlayer().gainXP(30);
-                }
-                break;
-            default:
+        if (!enteringBattle) {
+            switch (key) {
+                case Input.KEY_SEMICOLON:
+                    BattleState.toggleDeveloperMode();
+                    break;
+                case Input.KEY_M:
+                    if (developerMode()) {
+                        Player.getInventory().addItem(Gold.class, 30);
+                    }
+                    break;
+                case Input.KEY_L:
+                    if (developerMode()) {
+                        World.getPlayer().gainXP(30);
+                    }
+                    break;
+                default:
+            }
         }
     }
 
     public void mousePressed(int button, int x, int y) {
-        if (inventoryOpen) {
-            Player.getInventory().mousePressed(button, x, y);
-            closeButton.mousePressed(x, y);
-        }
-        else if (petSelectorOpen) {
-            Player.getPetSelector().mousePressed(button, x, y);
-            closeButton.mousePressed(x, y);
-        }
-        else if (shopOpen) {
-            shop.mousePressed(button, x, y);
-            closeButton.mousePressed(x, y);
-        }
-        else if (mapOpen) {
-            map.mousePressed(button, x, y);
-            closeButton.mousePressed(x, y);
-        }
-        else {
-            openInventoryButton.mousePressed(x, y);
-            openPetSelectorButton.mousePressed(x, y);
-            openShopButton.mousePressed(x, y);
-            openMapButton.mousePressed(x, y);
-            quitButton.mousePressed(x, y);
+        if (!enteringBattle) {
+            if (inventoryOpen) {
+                Player.getInventory().mousePressed(button, x, y);
+                closeButton.mousePressed(x, y);
+            }
+            else if (petSelectorOpen) {
+                Player.getPetSelector().mousePressed(button, x, y);
+                closeButton.mousePressed(x, y);
+            }
+            else if (shopOpen) {
+                shop.mousePressed(button, x, y);
+                closeButton.mousePressed(x, y);
+            }
+            else if (mapOpen) {
+                map.mousePressed(button, x, y);
+                closeButton.mousePressed(x, y);
+            }
+            else {
+                openInventoryButton.mousePressed(x, y);
+                openPetSelectorButton.mousePressed(x, y);
+                openShopButton.mousePressed(x, y);
+                openMapButton.mousePressed(x, y);
+                quitButton.mousePressed(x, y);
+            }
         }
     }
 
@@ -191,8 +208,12 @@ public class WorldState extends BasicGameState implements Values {
     }
 
     public void enterBattle(Creature enemy) {
+        closeInventory();
+        closePetSelector();
+        closeShop();
+        closeMap();
+        enteringBattle = true;
         lastEnemyEncountered = enemy;
-        sbg.enterState(Main.BATTLE_ID);
     }
 
     public void openInventory() {
@@ -249,5 +270,13 @@ public class WorldState extends BasicGameState implements Values {
 
     public static Creature getLastEnemyEncountered() {
         return lastEnemyEncountered;
+    }
+
+    public static boolean isEnteringBattle() {
+        return enteringBattle;
+    }
+
+    public static int getEnterBattleTimer() {
+        return enterBattleTimer;
     }
 }

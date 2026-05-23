@@ -28,7 +28,7 @@ public class World implements Values {
         testBiome = new Biome("Biome");
         calderaCastle = new Biome("Caldera Castle");
         permafrostGlaciers = new Biome("Permafrost Glaciers");
-        goToBiome(testBiome);
+        goToBiome(permafrostGlaciers);
         PopupManager.init();
     }
 
@@ -39,8 +39,10 @@ public class World implements Values {
 
     public void update(GameContainer gc) {
         currentBiome.update();
-        playerUnit.update(gc);
-        PopupManager.update();
+        if (!WorldState.isEnteringBattle())  {
+            playerUnit.update(gc);
+            PopupManager.update();
+        }
     }
 
     public void render(Graphics g) {
