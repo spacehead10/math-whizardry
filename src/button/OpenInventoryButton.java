@@ -12,7 +12,7 @@ public class OpenInventoryButton extends Button {
     public OpenInventoryButton(int x, int y, WorldState ws) {
         super(x, y, DEFAULT_SQUARE_BUTTON_SIZE, DEFAULT_SQUARE_BUTTON_SIZE);
         this.ws = ws;
-        icon = Media.imgButtonIconInventory;
+        icon = Media.imgButtonIconInventory.getScaledCopy(0.67f * w / Media.imgButtonIconInventory.getWidth());
     }
 
     @Override public void render(Graphics g, GameContainer gc) {
@@ -23,5 +23,6 @@ public class OpenInventoryButton extends Button {
 
     @Override public void onClick() {
         ws.openInventory();
+        Media.sfxOpen.play();
     }
 }

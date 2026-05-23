@@ -12,7 +12,7 @@ public class OpenMapButton extends Button {
     public OpenMapButton(int x, int y, WorldState ws) {
         super(x, y, DEFAULT_SQUARE_BUTTON_SIZE, DEFAULT_SQUARE_BUTTON_SIZE);
         this.ws = ws;
-        icon = Media.imgButtonIconTeleport;
+        icon = Media.imgButtonIconTeleport.getScaledCopy(0.67f * w / Media.imgButtonIconTeleport.getWidth());
     }
 
     @Override public void render(Graphics g, GameContainer gc) {
@@ -23,5 +23,6 @@ public class OpenMapButton extends Button {
 
     @Override public void onClick() {
         ws.openMap();
+        Media.sfxOpen.play();
     }
 }

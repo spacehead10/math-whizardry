@@ -1,6 +1,5 @@
 package shop;
 
-import button.ItemButton;
 import button.ShopButton;
 import button.ShopBuyButton;
 import core.Media;
@@ -16,19 +15,14 @@ import entities.creature.storm.Voltiger;
 import entities.creature.water.RiverLutin;
 import entities.player.Player;
 import item.Item;
-import item.currency.Gold;
 import item.relic.Relic;
 import item.wand.Wand;
-import item.wand.earth.EnchantedRose;
 import item.wand.storm.MysteriousFan;
 import item.wand.water.LimestoneWand;
 import item.wand.water.Trident;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import popup.message.DebugMessage;
-import world.World;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -36,8 +30,6 @@ import java.util.ArrayList;
 
 import static core.Main.getScreenHeight;
 import static core.Main.getScreenWidth;
-import static core.state.BattleState.developerMode;
-import static popup.PopupManager.addPopup;
 
 public class Shop implements Values {
     private List<ShopButton> shopButtons;
@@ -230,6 +222,10 @@ public class Shop implements Values {
 
             Player.getInventory().addItem(item.getClass(), 1);
             Player.getInventory().spendGold(item.getCost());
+            Media.sfxBuy.play();
+        }
+        else {
+            Media.sfxInvalidAction.play();
         }
     }
 
@@ -243,11 +239,15 @@ public class Shop implements Values {
                 copyOfPet = petClass.getDeclaredConstructor().newInstance();
                 Player.getPetSelector().addPet(copyOfPet);
                 Player.getInventory().spendGold(pet.getCost());
+                Media.sfxBuy.play();
             }
             catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("\u001b[31mError in attempting to buy a pet.\u001b[0m");
             }
+        }
+        else {
+            Media.sfxInvalidAction.play();
         }
     }
 

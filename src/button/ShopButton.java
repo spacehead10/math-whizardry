@@ -8,7 +8,6 @@ import item.wand.Wand;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import shop.Shop;
 
 public class ShopButton extends Button {
     private Item item;

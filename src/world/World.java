@@ -1,5 +1,6 @@
 package world;
 
+import core.Media;
 import core.Values;
 import core.state.WorldState;
 import entities.creature.Creature;
@@ -9,6 +10,7 @@ import item.relic.fire.FireRelicOne;
 import item.relic.ice.IceRelicOne;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Music;
 import popup.PopupManager;
 import world.biome.Biome;
 import world.worldUnit.PlayerWorldUnit;
@@ -21,6 +23,7 @@ public class World implements Values {
     private static Biome currentBiome;
     private static PlayerWorldUnit playerUnit;
     private static WorldState state;
+    private static Music biomeMusic;
 
     public World(WorldState state) {
         this.state = state;
@@ -51,13 +54,36 @@ public class World implements Values {
         PopupManager.render(g);
     }
 
+    public static void returnToWorld() {
+        if (biomeMusic != null && !biomeMusic.playing()) {
+            biomeMusic.loop(1, MUSIC_VOLUME);
+        }
+    }
+
     public static void enterBattle(Creature enemy) {
         state.enterBattle(enemy);
+        if (biomeMusic != null) {
+            biomeMusic.stop();
+        }
+        Media.sfxAggro.play();
     }
 
     public static void goToBiome(Biome biome) {
         currentBiome = biome;
         currentBiome.toSpawnRoom();
+        if (currentBiome == calderaCastle) {
+            biomeMusic = Media.musicCalderaCastle;
+        }
+        else if (currentBiome == permafrostGlaciers) {
+            biomeMusic = Media.musicPermafrostGlaciers;
+        }
+        else {
+            biomeMusic = null;
+        }
+
+        if (biomeMusic != null && !biomeMusic.playing()) {
+            biomeMusic.loop(1, MUSIC_VOLUME);
+        }
     }
 
     public static void giveBiomeLoot() {

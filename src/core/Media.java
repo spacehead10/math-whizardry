@@ -1,12 +1,8 @@
 package core;
 
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.*;
+
 import java.awt.Font;
-import org.newdawn.slick.SlickException;
 
 public class Media {
     public static final TrueTypeFont defaultFontTiny = new TrueTypeFont(new Font("Trebuchet MS", Font.PLAIN, 16), false);
@@ -187,6 +183,40 @@ public class Media {
         sheetSpellWindSlash = new SpriteSheet(new Image("res/areaSpellWindSlash.png"), 540, 540);
         sheetSpellCapture = new SpriteSheet(new Image("res/singleSpellCapture.png"), 280, 280);
         imgAggro = new Image("res/aggro.png");
+    }
+
+    public static Music musicCalderaCastle;
+    public static Music musicPermafrostGlaciers;
+    public static Music musicBattle;
+    public static Sound sfxButton;
+    public static Sound sfxInvalidAction;
+    public static Sound sfxOpen;
+    public static Sound sfxClose;
+    public static Sound sfxBuy;
+    public static Sound sfxAggro;
+    public static Sound sfxCastSpell;
+    public static Sound sfxDamage;
+    public static Sound sfxMiss;
+    public static Sound sfxCapture;
+    public static Sound sfxVictory;
+    public static Sound sfxDefeat;
+
+    public static void loadSound() throws SlickException {
+        musicCalderaCastle = new Music("res/sound/calderaCastle.ogg");
+        musicPermafrostGlaciers = new Music("res/sound/permafrostGlaciers.ogg");
+        musicBattle = new Music("res/sound/battle.ogg");
+        sfxButton = new Sound("res/sound/click.wav");
+        sfxInvalidAction = new Sound("res/sound/cancel.wav");
+        sfxOpen = new Sound("res/sound/select.wav");
+        sfxClose = new Sound("res/sound/unselect.wav");
+        sfxBuy = new Sound("res/sound/coins.wav");
+        sfxAggro = new Sound("res/sound/aggro.wav");
+        sfxCastSpell = new Sound("res/sound/castSpell.wav");
+        sfxDamage = new Sound("res/sound/damage.wav");
+        sfxMiss = new Sound("res/sound/miss.wav");
+        sfxCapture = new Sound("res/sound/capture.ogg");
+        sfxVictory = new Sound("res/sound/victory.ogg");
+        sfxDefeat = new Sound("res/sound/defeat.wav");
     }
 
     public static final int LEFT = 0;

@@ -95,10 +95,15 @@ public class Battle implements Values {
         switchToTopButton = new SwitchChoiceButton(0, this);
         switchToBottomButton = new SwitchChoiceButton(1, this);
         cancelSwitchButton = new CancelSwitchButton(getScreenWidth() - CANCEL_SWITCH_BUTTON_WIDTH - 100, 150, this);
+
+        Media.musicBattle.loop(1, MUSIC_VOLUME);
     }
 
     public void update() {
-        if (!battleOver) {
+        if (battleOver) {
+            Media.musicBattle.stop();
+        }
+        else {
             if (waitTimer > 0) {
                 waitTimer--;
             }
@@ -128,6 +133,7 @@ public class Battle implements Values {
                                 addPopup(new BattleAnnouncement(left.getActiveUnit().getName() + " used " + left.getActiveUnit().getAttack(lastChosenAttack).getName()));
                             }
                             waitTimer = SPELL_DELAY;
+                            Media.sfxCastSpell.play(2, 0.2f);
                         }
                         else if (question.incorrectAnswerSubmitted()) {
                             battleStep = BattleStep.LEFT_ATTACKING;
@@ -137,6 +143,7 @@ public class Battle implements Values {
                                 addPopup(new BattleAnnouncement(left.getActiveUnit().getName() + " used " + left.getActiveUnit().getAttack(lastChosenAttack).getName()));
                             }
                             waitTimer = SPELL_DELAY;
+                            Media.sfxCastSpell.play(2, 0.2f);
                         }
                     }
                     break;
@@ -147,12 +154,22 @@ public class Battle implements Values {
                                 Player.getPetSelector().addPet(right.getActiveUnit().getEntity());
                                 right.getActiveUnit().remove();
                                 right.cleanup();
+                                Media.sfxCapture.play();
+                            }
+                            else {
+                                Media.sfxMiss.play();
                             }
                             waitTimer = 2 * SPELL_DELAY;
                             battleStep = BattleStep.RIGHT_CHARGING;
                         }
                         else {
                             left.attack(lastChosenAttack, right, leftMissedAttack);
+                            if (!leftMissedAttack) {
+                                Media.sfxDamage.play();
+                            }
+                            else {
+                                Media.sfxMiss.play();
+                            }
                             waitTimer = 2 * SPELL_DELAY;
                             battleStep = BattleStep.RIGHT_CHARGING;
                         }
@@ -191,11 +208,19 @@ public class Battle implements Values {
                         addPopup(new BattleAnnouncement(right.getActiveUnit().getName() + " used " + right.getActiveUnit().getAttack(rightChosenAttack).getName()));
                         battleStep = BattleStep.RIGHT_ATTACKING;
                         waitTimer = SPELL_DELAY;
+                        Media.sfxCastSpell.play(2, 0.2f);
                     }
                     break;
                 case RIGHT_ATTACKING:
                     if (waitTimer <= 0) {
-                        right.attack(rightChosenAttack, left, Math.random() < MISS_CHANCE);
+                        boolean miss = Math.random() < MISS_CHANCE;
+                        right.attack(rightChosenAttack, left, miss);
+                        if (!miss) {
+                            Media.sfxDamage.play();
+                        }
+                        else {
+                            Media.sfxMiss.play();
+                        }
                         waitTimer = SPELL_DELAY;
                         battleStep = BattleStep.LEFT_CHARGING;
                     }
@@ -210,14 +235,16 @@ public class Battle implements Values {
             }
 
             if (right.hasLost()) {
-                addPopup(new BattleAnnouncement("Victory!", getScreenHeight() * 0.5f));
+                addPopup(new BattleAnnouncement("Victory!", getScreenHeight() * 0.5f, 300));
                 Player.getInventory().addItem(Gold.class, BASE_GOLD_REWARD * rightSize);
                 World.giveBiomeLoot();
                 left.gainXP(BASE_XP_REWARD * rightSize);
+                Media.sfxVictory.play();
                 battleOver = true;
             }
             else if (left.hasLost()) {
-                addPopup(new BattleAnnouncement("Defeat...", getScreenHeight() * 0.5f));
+                addPopup(new BattleAnnouncement("Defeat...", getScreenHeight() * 0.5f, 300));
+                Media.sfxDefeat.play();
                 battleOver = true;
             }
         }
@@ -369,11 +396,16 @@ public class Battle implements Values {
     public void chooseAttack(int index) {
         lastChosenAttack = index;
         if (lastChosenAttack > 5 || lastChosenAttack < 0) {
+            Media.sfxInvalidAction.play();
             return;
         }
+
         if (lastChosenAttack == 4) {
             if (left.getWaitingUnitOne() != null || left.getWaitingUnitTwo() != null) {
                 battleStep = BattleStep.LEFT_SWITCHING;
+            }
+            else {
+                Media.sfxInvalidAction.play();
             }
         }
         else if (lastChosenAttack == 5) {
@@ -381,10 +413,18 @@ public class Battle implements Values {
                 question = new MathQuestion();
                 battleStep = BattleStep.MATH_QUESTION;
             }
+            else {
+                Media.sfxInvalidAction.play();
+            }
         }
-        else if (left.getActiveUnit().getAttack(lastChosenAttack) != null && left.hasEnergy(left.getActiveUnit().getAttackCost(lastChosenAttack))) {
-            question = new MathQuestion();
-            battleStep = BattleStep.MATH_QUESTION;
+        else {
+            if (left.getActiveUnit().getAttack(lastChosenAttack) != null && left.hasEnergy(left.getActiveUnit().getAttackCost(lastChosenAttack))) {
+                question = new MathQuestion();
+                battleStep = BattleStep.MATH_QUESTION;
+            }
+            else {
+                Media.sfxInvalidAction.play();
+            }
         }
     }
 

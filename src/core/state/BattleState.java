@@ -3,6 +3,7 @@ package core.state;
 import combat.Battle;
 import combat.Team;
 import core.Media;
+import core.Values;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -12,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import popup.PopupManager;
 import world.World;
 
-public class BattleState extends BasicGameState {
+public class BattleState extends BasicGameState implements Values {
     private int id;
 
     public BattleState(int id) {
@@ -31,13 +32,6 @@ public class BattleState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
         gc.setShowFPS(false);
-        try {
-            Media.loadImages();
-        }
-        catch (SlickException se) {
-            System.out.println("Image not found!");
-            System.exit(-1);
-        }
         developerMode = false;
     }
 

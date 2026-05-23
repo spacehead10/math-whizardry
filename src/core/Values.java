@@ -99,5 +99,7 @@ public interface Values {
     int SPELL_EFFECT_DURATION = 48;
     float PROJECTILE_SPEED = 25;
 
-    int ENTER_BATTLE_DELAY = 120;
+    int ENTER_BATTLE_DELAY = 60;
+
+    float MUSIC_VOLUME = 0.05f;
 }

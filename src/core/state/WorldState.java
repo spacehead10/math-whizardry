@@ -58,9 +58,10 @@ public class WorldState extends BasicGameState implements Values {
         gc.setShowFPS(false);
         try {
             Media.loadImages();
+            Media.loadSound();
         }
         catch (SlickException se) {
-            System.out.println("Image not found!");
+            se.printStackTrace();
             System.exit(-1);
         }
         PopupManager.init();
@@ -141,6 +142,7 @@ public class WorldState extends BasicGameState implements Values {
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
         enteringBattle = false;
         enterBattleTimer = ENTER_BATTLE_DELAY;
+        World.returnToWorld();
     }
 
     public void leave(GameContainer gc, StateBasedGame sbg) {
