@@ -12,6 +12,7 @@ public class Media {
     public static final TrueTypeFont debugFont = new TrueTypeFont(new Font("Roboto Mono", Font.PLAIN, 16), false);
 
     public static Image imgButton;
+    public static Image imgButtonFancy;
     public static Image imgButtonClose;
     public static Image imgButtonIconInventory;
     public static Image imgButtonIconTeamSelector;
@@ -96,9 +97,12 @@ public class Media {
     public static SpriteSheet sheetSpellSnowstorm;
     public static SpriteSheet sheetSpellWindSlash;
     public static SpriteSheet sheetSpellCapture;
+    public static Image imgTitleText;
+    public static Image[] imgsTitleBG;
 
     public static void loadImages() throws SlickException {
         imgButton = new Image("res/buttonGray.png");
+        imgButtonFancy = new Image("res/buttonFancy.png");
         imgButtonClose = new Image("res/buttonClose.png");
         imgButtonIconInventory = new Image("res/buttonIconInventory.png");
         imgButtonIconTeamSelector = new Image("res/buttonIconTeamSelector.png");
@@ -183,6 +187,11 @@ public class Media {
         sheetSpellWindSlash = new SpriteSheet(new Image("res/areaSpellWindSlash.png"), 540, 540);
         sheetSpellCapture = new SpriteSheet(new Image("res/singleSpellCapture.png"), 280, 280);
         imgAggro = new Image("res/aggro.png");
+        imgTitleText = new Image("res/titleText.png");
+        imgsTitleBG = new Image[3];
+        for (int i = 0; i < imgsTitleBG.length; i++) {
+            imgsTitleBG[i] = new Image("res/titleBG" + i + ".png");
+        }
     }
 
     public static Music musicCalderaCastle;
@@ -268,8 +277,15 @@ public class Media {
     }
 
     public static void drawShadowedString(String str, float x, float y, int xAlign, int yAlign, TrueTypeFont font, Color base, Color shadow, Graphics g) {
+        int distance;
+        if (font == defaultFontTiny || font == defaultFontSmall) {
+            distance = 1;
+        }
+        else {
+            distance = 2;
+        }
         g.setColor(shadow);
-        drawAlignedString(str, x - 2, y - 2, xAlign, yAlign, font, g);
+        drawAlignedString(str, x - distance, y - distance, xAlign, yAlign, font, g);
         g.setColor(base);
         drawAlignedString(str, x, y, xAlign, yAlign, font, g);
     }

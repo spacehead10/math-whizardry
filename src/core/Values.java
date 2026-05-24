@@ -102,4 +102,9 @@ public interface Values {
     int ENTER_BATTLE_DELAY = 60;
 
     float MUSIC_VOLUME = 0.05f;
+
+    double TITLE_TIMER_RATE = 1. / (5 * 60);
+
+    int START_BUTTON_WIDTH = 480;
+    int START_BUTTON_HEIGHT = 240;
 }

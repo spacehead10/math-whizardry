@@ -84,7 +84,7 @@ public class Battle implements Values {
             right.getWaitingUnitTwo().setPosition(2);
             rightSize++;
         }
-        toWorldButton = new ToWorldButton(getScreenWidth() - STATE_BUTTON_WIDTH - 100, 150, sbg);
+        toWorldButton = new ToWorldButton(getScreenWidth() - STATE_BUTTON_WIDTH - 100, (int) (getScreenHeight() * 0.4f), sbg);
         attackChoiceButtons = new AttackChoiceButton[2][2];
         attackChoiceButtons[0][0] = new AttackChoiceButton(0, 0, null, this);
         attackChoiceButtons[0][1] = new AttackChoiceButton(0, 1, null, this);

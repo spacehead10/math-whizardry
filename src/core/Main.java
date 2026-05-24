@@ -11,15 +11,18 @@ public class Main extends StateBasedGame {
     public final static int FRAMES_PER_SECOND = 60;
     private static AppGameContainer appgc;
 
-    public static final int WORLD_ID = 0;
-    public static final int BATTLE_ID = 1;
+    public static final int TITLE_ID = 0;
+    public static final int WORLD_ID = 1;
+    public static final int BATTLE_ID = 2;
 
+    private BasicGameState title;
     private BasicGameState world;
     private BasicGameState battle;
 
     public Main(String name) {
         super(name);
 
+        title = new TitleState(TITLE_ID);
         world = new WorldState(WORLD_ID);
         battle = new BattleState(BATTLE_ID);
     }
@@ -33,6 +36,7 @@ public class Main extends StateBasedGame {
     }
 
     public void initStatesList(GameContainer gc) throws SlickException {
+        addState(title);
         addState(world);
         addState(battle);
     }

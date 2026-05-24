@@ -118,18 +118,15 @@ public class Team implements Values {
             Media.drawAlignedString(healthText, getScreenWidth() - healthbarX - 10, barCenterY, Media.RIGHT, Media.CENTER, Media.defaultFontTiny, g);
         }
 
-        //name and level
+        //name, element, and level
         if (activeUnit != null) {
-            g.setColor(Color.white);
             if (isOnLeftSide) {
-                Media.drawAlignedString(activeUnit.getName(), healthbarX + 20, healthbarY + healthbarHeight, Media.LEFT, Media.TOP, Media.defaultFontSmall, g);
-                g.setColor(Color.green);
-                Media.drawAlignedString("Lvl " + activeUnit.getLevel(), healthbarX + 20, healthbarY + healthbarHeight + Media.defaultFontSmall.getHeight(), Media.LEFT, Media.TOP, Media.defaultFontTiny, g);
+                Media.drawShadowedString(activeUnit.getName() + " (" + activeUnit.getNameOfElement() + ")", healthbarX + 20, healthbarY + healthbarHeight, Media.LEFT, Media.TOP, Media.defaultFontSmall, Color.white, Color.black, g);
+                Media.drawShadowedString("Lvl " + activeUnit.getLevel(), healthbarX + 20, healthbarY + healthbarHeight + Media.defaultFontSmall.getHeight(), Media.LEFT, Media.TOP, Media.defaultFontTiny, Color.white, Color.black, g);
             }
             else {
-                Media.drawAlignedString(activeUnit.getName(), getScreenWidth() - healthbarX - 20, healthbarY + healthbarHeight, Media.RIGHT, Media.TOP, Media.defaultFontSmall, g);
-                g.setColor(Color.green);
-                Media.drawAlignedString("Lvl " + activeUnit.getLevel(), getScreenWidth() - healthbarX - 20, healthbarY + healthbarHeight + Media.defaultFontSmall.getHeight(), Media.RIGHT, Media.TOP, Media.defaultFontTiny, g);
+                Media.drawShadowedString(activeUnit.getName() + " (" + activeUnit.getNameOfElement() + ")", getScreenWidth() - healthbarX - 20, healthbarY + healthbarHeight, Media.RIGHT, Media.TOP, Media.defaultFontSmall, Color.white, Color.black, g);
+                Media.drawShadowedString("Lvl " + activeUnit.getLevel(), getScreenWidth() - healthbarX - 20, healthbarY + healthbarHeight + Media.defaultFontSmall.getHeight(), Media.RIGHT, Media.TOP, Media.defaultFontTiny, Color.white, Color.black, g);
             }
         }
     }

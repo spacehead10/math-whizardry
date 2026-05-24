@@ -2,7 +2,6 @@ package core.state;
 
 import button.*;
 import core.Main;
-import core.Media;
 import item.currency.Gold;
 import save.SaveInterpreter;
 import core.Values;
@@ -14,7 +13,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import popup.PopupManager;
 import shop.Shop;
 import world.TeleportMap;
 import world.World;
@@ -40,7 +38,7 @@ public class WorldState extends BasicGameState implements Values {
     private boolean petSelectorOpen;
     private boolean shopOpen;
     private boolean mapOpen;
-    private SaveInterpreter saveInterpreter;
+    private static SaveInterpreter saveInterpreter;
     private World world;
     private Shop shop;
     private TeleportMap map;
@@ -56,19 +54,9 @@ public class WorldState extends BasicGameState implements Values {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
         gc.setShowFPS(false);
-        try {
-            Media.loadImages();
-            Media.loadSound();
-        }
-        catch (SlickException se) {
-            se.printStackTrace();
-            System.exit(-1);
-        }
-        PopupManager.init();
 
         world = new World(this);
         saveInterpreter = new SaveInterpreter();
-        saveInterpreter.loadGame(true);
 
         shop = new Shop();
         map = new TeleportMap(this);
@@ -268,6 +256,10 @@ public class WorldState extends BasicGameState implements Values {
     public void quit() {
         saveInterpreter.saveFile();
         System.exit(0);
+    }
+
+    public static void loadGame(boolean saved) {
+        saveInterpreter.loadGame(saved);
     }
 
     public static Creature getLastEnemyEncountered() {
