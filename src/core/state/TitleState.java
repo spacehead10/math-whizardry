@@ -66,7 +66,7 @@ public class TitleState extends BasicGameState implements Values {
         titleText.draw(getScreenWidth() / 2 - titleText.getWidth() / 2, getScreenHeight() * 0.25f - titleText.getHeight() / 2);
         newGameButton.render(g, gc);
         loadSaveButton.render(g, gc);
-        Media.drawShadowedString("Warning: Starting a new game will overwrite an existing save.", getScreenWidth() / 2, getScreenHeight() / 2 + START_BUTTON_HEIGHT, Media.CENTER, Media.TOP, Media.defaultFontMedium, Color.white, Color.black, g);
+        Media.drawShadowedString("Warning: Starting a new game will overwrite existing save data.", getScreenWidth() / 2, getScreenHeight() / 2 + START_BUTTON_HEIGHT, Media.CENTER, Media.TOP, Media.defaultFontMedium, Color.white, Color.black, g);
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {

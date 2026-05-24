@@ -24,10 +24,12 @@ public class World implements Values {
     private static PlayerWorldUnit playerUnit;
     private static WorldState state;
     private static Music biomeMusic;
+    private static boolean hasEntered;
 
     public World(WorldState state) {
         this.state = state;
         initPlayer();
+        hasEntered = false;
         testBiome = new Biome("Biome");
         calderaCastle = new Biome("Caldera Castle");
         permafrostGlaciers = new Biome("Permafrost Glaciers");
@@ -54,10 +56,11 @@ public class World implements Values {
         PopupManager.render(g);
     }
 
-    public static void returnToWorld() {
+    public static void enterWorld() {
         if (biomeMusic != null && !biomeMusic.playing()) {
             biomeMusic.loop(1, MUSIC_VOLUME);
         }
+        hasEntered = true;
     }
 
     public static void enterBattle(Creature enemy) {
@@ -81,7 +84,7 @@ public class World implements Values {
             biomeMusic = null;
         }
 
-        if (biomeMusic != null && !biomeMusic.playing()) {
+        if (biomeMusic != null && !biomeMusic.playing() && hasEntered) {
             biomeMusic.loop(1, MUSIC_VOLUME);
         }
     }

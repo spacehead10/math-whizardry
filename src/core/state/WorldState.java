@@ -130,7 +130,7 @@ public class WorldState extends BasicGameState implements Values {
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
         enteringBattle = false;
         enterBattleTimer = ENTER_BATTLE_DELAY;
-        World.returnToWorld();
+        World.enterWorld();
     }
 
     public void leave(GameContainer gc, StateBasedGame sbg) {
