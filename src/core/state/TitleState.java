@@ -1,7 +1,9 @@
 package core.state;
 
+import button.EasyModeButton;
 import button.LoadSaveButton;
 import button.NewGameButton;
+import button.NormalModeButton;
 import core.Media;
 import core.Values;
 import org.newdawn.slick.*;
@@ -30,6 +32,9 @@ public class TitleState extends BasicGameState implements Values {
     private int backgroundIndex;
     private NewGameButton newGameButton;
     private LoadSaveButton loadSaveButton;
+    private boolean newGameOptionsOpen;
+    private EasyModeButton easyModeButton;
+    private NormalModeButton normalModeButton;
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
@@ -47,8 +52,11 @@ public class TitleState extends BasicGameState implements Values {
         backgrounds = Media.imgsTitleBG;
         backgroundTimer = 0;
         backgroundIndex = 0;
-        newGameButton = new NewGameButton((int) (getScreenWidth() * 0.33f - START_BUTTON_WIDTH / 2), getScreenHeight() / 2, sbg);
+        newGameOptionsOpen = false;
+        newGameButton = new NewGameButton((int) (getScreenWidth() * 0.33f - START_BUTTON_WIDTH / 2), getScreenHeight() / 2, this);
         loadSaveButton = new LoadSaveButton((int) (getScreenWidth() * 0.67f - START_BUTTON_WIDTH / 2), getScreenHeight() / 2, sbg);
+        easyModeButton = new EasyModeButton((int) (getScreenWidth() * 0.4f - MODE_SELECTION_BUTTON_WIDTH / 2), getScreenHeight() / 2, sbg);
+        normalModeButton = new NormalModeButton((int) (getScreenWidth() * 0.6f - MODE_SELECTION_BUTTON_WIDTH / 2), getScreenHeight() / 2, sbg);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -63,10 +71,21 @@ public class TitleState extends BasicGameState implements Values {
         backgrounds[backgroundIndex].draw(0, 0, getScreenWidth(), getScreenHeight());
         g.setColor(new Color(0, 0, 0, 127));
         g.fillRect(0, 0, getScreenWidth(), getScreenHeight());
-        titleText.draw(getScreenWidth() / 2 - titleText.getWidth() / 2, getScreenHeight() * 0.25f - titleText.getHeight() / 2);
-        newGameButton.render(g, gc);
-        loadSaveButton.render(g, gc);
-        Media.drawShadowedString("Warning: Starting a new game will overwrite existing save data.", getScreenWidth() / 2, getScreenHeight() / 2 + START_BUTTON_HEIGHT, Media.CENTER, Media.TOP, Media.defaultFontMedium, Color.white, Color.black, g);
+
+        if (newGameOptionsOpen) {
+            g.setColor(new Color(255, 255, 255, 200));
+            g.fillRect(10, 10, getScreenWidth() - 20, getScreenHeight() - 20);
+            g.setColor(Color.black);
+            Media.drawAlignedString("Select math difficulty", getScreenWidth() / 2, getScreenHeight() * 0.25f, Media.CENTER, Media.CENTER, Media.defaultFontLarge, g);
+            easyModeButton.render(g, gc);
+            normalModeButton.render(g, gc);
+        }
+        else {
+            titleText.draw(getScreenWidth() / 2 - titleText.getWidth() / 2, getScreenHeight() * 0.25f - titleText.getHeight() / 2);
+            newGameButton.render(g, gc);
+            loadSaveButton.render(g, gc);
+            Media.drawShadowedString("Warning: Starting a new game will overwrite existing save data.", getScreenWidth() / 2, getScreenHeight() / 2 + START_BUTTON_HEIGHT, Media.CENTER, Media.TOP, Media.defaultFontMedium, Color.white, Color.black, g);
+        }
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -79,7 +98,17 @@ public class TitleState extends BasicGameState implements Values {
     }
 
     public void mousePressed(int button, int x, int y) {
-        newGameButton.mousePressed(x, y);
-        loadSaveButton.mousePressed(x, y);
+        if (newGameOptionsOpen) {
+            easyModeButton.mousePressed(x, y);
+            normalModeButton.mousePressed(x, y);
+        }
+        else {
+            newGameButton.mousePressed(x, y);
+            loadSaveButton.mousePressed(x, y);
+        }
+    }
+
+    public void startNewGame() {
+        newGameOptionsOpen = true;
     }
 }

@@ -19,6 +19,7 @@ public class Media {
     public static Image imgButtonIconShop;
     public static Image imgButtonIconTeleport;
     public static Image imgButtonIconQuit;
+    public static Image imgButtonIconSettings;
     public static Image imgBattleBGFire;
     public static Image imgBattleBGIce;
     public static Image imgCalderaCastleGround;
@@ -109,6 +110,7 @@ public class Media {
         imgButtonIconShop = new Image("res/buttonIconShop.png");
         imgButtonIconTeleport = new Image("res/buttonIconTeleport.png");
         imgButtonIconQuit = new Image("res/buttonIconQuit.png");
+        imgButtonIconSettings = new Image("res/buttonIconSettings.png");
         imgBattleBGFire = new Image("res/battleBGFire.png");
         imgBattleBGIce = new Image("res/battleBGIce.png");
         sheetCreatureFlameLutinLeft = new SpriteSheet(new Image("res/creatureFlameLutinLeft.png"), 284, 284);

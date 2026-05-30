@@ -2,6 +2,7 @@ package core.state;
 
 import button.*;
 import core.Main;
+import core.Settings;
 import item.currency.Gold;
 import save.SaveInterpreter;
 import core.Values;
@@ -14,7 +15,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import shop.Shop;
-import world.TeleportMap;
+import world.TeleportMenu;
 import world.World;
 
 import static core.Main.getScreenWidth;
@@ -38,16 +39,20 @@ public class WorldState extends BasicGameState implements Values {
     private boolean petSelectorOpen;
     private boolean shopOpen;
     private boolean mapOpen;
+    private boolean settingsOpen;
     private static SaveInterpreter saveInterpreter;
     private World world;
     private Shop shop;
-    private TeleportMap map;
+    private TeleportMenu map;
+    private Settings settings;
     private OpenInventoryButton openInventoryButton;
     private OpenPetSelectorButton openPetSelectorButton;
     private OpenShopButton openShopButton;
     private OpenMapButton openMapButton;
     private CloseButton closeButton;
     private QuitButton quitButton;
+    private OpenSettingsButton openSettingsButton;
+    private ModeToggleButton modeToggleButton;
     private static boolean enteringBattle;
     private static int enterBattleTimer;
 
@@ -59,12 +64,14 @@ public class WorldState extends BasicGameState implements Values {
         saveInterpreter = new SaveInterpreter();
 
         shop = new Shop();
-        map = new TeleportMap(this);
+        map = new TeleportMenu(this);
+        settings = new Settings();
 
         inventoryOpen = false;
         petSelectorOpen = false;
         shopOpen = false;
         mapOpen = false;
+        settingsOpen = false;
         enteringBattle = false;
 
         enterBattleTimer = ENTER_BATTLE_DELAY;
@@ -75,6 +82,7 @@ public class WorldState extends BasicGameState implements Values {
         openMapButton = new OpenMapButton(getScreenWidth() - DEFAULT_SQUARE_BUTTON_SIZE - 10, 10 + 3 * (DEFAULT_SQUARE_BUTTON_SIZE + 10), this);
         closeButton = new CloseButton(getScreenWidth() - DEFAULT_SQUARE_BUTTON_SIZE - 10, 10, this);
         quitButton = new QuitButton(10, 10, this);
+        openSettingsButton = new OpenSettingsButton(10 + DEFAULT_SQUARE_BUTTON_SIZE + 10, 10, this);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -118,12 +126,17 @@ public class WorldState extends BasicGameState implements Values {
             map.render(g, gc);
             closeButton.render(g, gc);
         }
+        else if (settingsOpen) {
+            settings.render(g, gc);
+            closeButton.render(g, gc);
+        }
         else {
             openInventoryButton.render(g, gc);
             openPetSelectorButton.render(g, gc);
             openShopButton.render(g, gc);
             openMapButton.render(g, gc);
             quitButton.render(g, gc);
+            openSettingsButton.render(g, gc);
         }
     }
 
@@ -175,12 +188,17 @@ public class WorldState extends BasicGameState implements Values {
                 map.mousePressed(button, x, y);
                 closeButton.mousePressed(x, y);
             }
+            else if (settingsOpen) {
+                settings.mousePressed(button, x, y);
+                closeButton.mousePressed(x, y);
+            }
             else {
                 openInventoryButton.mousePressed(x, y);
                 openPetSelectorButton.mousePressed(x, y);
                 openShopButton.mousePressed(x, y);
                 openMapButton.mousePressed(x, y);
                 quitButton.mousePressed(x, y);
+                openSettingsButton.mousePressed(x, y);
             }
         }
     }
@@ -202,6 +220,7 @@ public class WorldState extends BasicGameState implements Values {
         closePetSelector();
         closeShop();
         closeMap();
+        closeSettings();
         enteringBattle = true;
         lastEnemyEncountered = enemy;
     }
@@ -211,6 +230,7 @@ public class WorldState extends BasicGameState implements Values {
         closePetSelector();
         closeShop();
         closeMap();
+        closeSettings();
     }
 
     public void closeInventory() {
@@ -223,6 +243,7 @@ public class WorldState extends BasicGameState implements Values {
         closeInventory();
         closeShop();
         closeMap();
+        closeSettings();
     }
 
     public void closePetSelector() {
@@ -235,6 +256,7 @@ public class WorldState extends BasicGameState implements Values {
         closeInventory();
         closePetSelector();
         closeMap();
+        closeSettings();
     }
 
     public void closeShop() {
@@ -247,10 +269,23 @@ public class WorldState extends BasicGameState implements Values {
         closeInventory();
         closePetSelector();
         closeShop();
+        closeSettings();
     }
 
     public void closeMap() {
         mapOpen = false;
+    }
+
+    public void openSettings() {
+        settingsOpen = true;
+        closeInventory();
+        closePetSelector();
+        closeShop();
+        closeMap();
+    }
+
+    public void closeSettings() {
+        settingsOpen = false;
     }
 
     public void quit() {

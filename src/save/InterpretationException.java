@@ -1,6 +1,6 @@
 package save;
 
-public class InterpretationException extends RuntimeException {
+public class InterpretationException extends Exception {
     public InterpretationException(String message) {
         super(message);
     }

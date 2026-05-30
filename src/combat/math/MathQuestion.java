@@ -8,6 +8,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,7 +18,6 @@ import static core.Main.getScreenWidth;
 import static core.Main.getScreenHeight;
 
 public class MathQuestion implements Values {
-    private QuestionType type;
     private MathString questionText;
 
     private AnswerChoice[] answers;
@@ -32,9 +33,9 @@ public class MathQuestion implements Values {
     private int correctAnswerIndex;
     private List<Integer> incorrectAnswerIndexes;
 
-    public MathQuestion() {
-        type = QuestionType.MULTIPLE_CHOICE;
+    private static boolean easyMode;
 
+    public MathQuestion() {
         answerX = getScreenWidth() * 0.33f;
         answerY = getScreenHeight() * 0.5f;
         correctAnswerIndex = randomIntInRange(0, 3);
@@ -47,13 +48,25 @@ public class MathQuestion implements Values {
 
         answers = new AnswerChoice[4];
 
-        switch (randomIntInRange(0, 5)) {
-            case 0 -> generateDerivPowerQuestion();
-            case 1 -> generateDerivTrigQuestion();
-            case 2 -> generateDerivExponentialQuestion();
-            case 3 -> generateIntegralPowerQuestion();
-            case 4 -> generateIntegralTrigQuestion();
-            default -> generateIntegralExponentialQuestion();
+        if (easyMode) {
+            switch (randomIntInRange(0, 2)) {
+                case 0 -> generateLinearSolutionQuestion();
+                case 1 -> generateLinearSlopeQuestion();
+                default -> generateLinearFunctionValueQuestion();
+            }
+        }
+        else {
+//            switch (randomIntInRange(0, 7)) {
+//                case 0 -> generateDerivPowerQuestion();
+//                case 1 -> generateDerivTrigQuestion();
+//                case 2 -> generateDerivExponentialQuestion();
+//                case 3 -> generateDerivLnQuestion();
+//                case 4 -> generateIntegralPowerQuestion();
+//                case 5 -> generateIntegralTrigQuestion();
+//                case 6 -> generateIntegralExponentialQuestion();
+//                default -> generateIntegralLnQuestion();
+//            }
+            generateDerivLnQuestion();
         }
 
         answerChoiceButtons = new AnswerChoiceButton[4];
@@ -944,6 +957,235 @@ public class MathQuestion implements Values {
         }
     }
 
+    public void generateLinearSolutionQuestion() {
+        //Question
+        int slope = randomIntInRange(2, 9);
+        if (Math.random() < 0.5) {
+            slope *= -1;
+        }
+        int intercept = randomIntInRange(1, 9) * slope;
+        if (Math.random() < 0.5) {
+            intercept *= -1;
+        }
+
+        String baseText = "y=";
+        if (slope < 0) {
+            baseText = baseText + "-";
+        }
+        baseText = baseText + Math.abs(slope) + "x";
+        if (intercept < 0) {
+            baseText = baseText + "-";
+        }
+        else {
+            baseText = baseText + "+";
+        }
+        baseText = baseText + Math.abs(intercept);
+
+        questionText = new MathString("Solve for the x-intercept of " + baseText + ".");
+
+        //Correct answer
+        {
+            int correctSolution = -intercept / slope;
+
+            String correctText = "" + correctSolution;
+
+            answers[correctAnswerIndex] = new AnswerChoice(correctText, true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
+        }
+
+        //Distractor answers
+        {
+            int negativeSolution = intercept / slope;
+
+            String negativeText = "" + negativeSolution;
+
+            int j = randomIntInRange(0, 2);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(negativeText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        {
+            int yIntSolution = intercept;
+
+            String yIntText = "" + yIntSolution;
+
+            int j = randomIntInRange(0, 1);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(yIntText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        {
+            int negativeYIntSolution = -intercept;
+
+            String negativeYIntText = "" + negativeYIntSolution;
+
+            answers[incorrectAnswerIndexes.getFirst()] = new AnswerChoice(negativeYIntText, false, answerX, answerY + incorrectAnswerIndexes.getFirst() * (Media.defaultFontMedium.getHeight() + 10));
+        }
+    }
+
+    public void generateLinearSlopeQuestion() {
+        //Question
+        int x2 = randomIntInRange(-9, 9);
+        int x1 = randomIntInRange(-9, 9);
+        while (x1 == x2) {
+            x1 = randomIntInRange(-9, 9);
+        }
+        int dx = x2 - x1;
+
+        int dy = dx * randomIntInRange(2, 9); // |slope| = randomIntInRange(2, 9)
+        if (Math.random() < 0.5) { //slope = (+/-) randomIntInRange(2, 9)
+            dy *= -1;
+        }
+        int y2 = randomIntInRange(-9, 9);
+        int y1 = y2 - dy; //dy = y2 - y1
+
+        String point1 = "(" + x1 + ", " + y1 + ")";
+        String point2 = "(" + x2 + ", " + y2 + ")";
+
+        questionText = new MathString("What is the slope of the line through " + point1 + " and " + point2 + "?");
+
+        //Correct answer
+        {
+            int correctSlope = dy / dx;
+
+            String correctText = "" + correctSlope;
+
+            answers[correctAnswerIndex] = new AnswerChoice(correctText, true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
+        }
+
+        //Distractor answers
+        {
+            int negativeSlope = - dy / dx;
+
+            String negativeText = "" + negativeSlope;
+
+            int j = randomIntInRange(0, 2);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(negativeText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        {
+            DecimalFormat df = new DecimalFormat("0.###");
+
+            double reciprocalSlope = (double) dx / dy;
+
+            String reciprocalText = df.format(reciprocalSlope);
+
+            int j = randomIntInRange(0, 1);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(reciprocalText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        {
+            DecimalFormat df = new DecimalFormat("0.###");
+
+            double negativeReciprocalSlope = (double) (-dx) / dy;
+
+            String negativeReciprocalText = df.format(negativeReciprocalSlope);
+
+            answers[incorrectAnswerIndexes.getFirst()] = new AnswerChoice(negativeReciprocalText, false, answerX, answerY + incorrectAnswerIndexes.getFirst() * (Media.defaultFontMedium.getHeight() + 10));
+        }
+    }
+
+    public void generateLinearFunctionValueQuestion() {
+        answers[correctAnswerIndex] = new AnswerChoice("Placeholder correct answer", true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
+        for (int i = 0; i < answers.length; i++) {
+            if (i != correctAnswerIndex) {
+                answers[i] = new AnswerChoice("Placeholder incorrect answer", false, answerX, answerY + i * (Media.defaultFontMedium.getHeight() + 10));
+            }
+        }
+
+        //Question
+        int slope = randomIntInRange(1, 9); //slope != 0 to avoid mx+b = -mx+b
+        if (Math.random() < 0.5) {
+            slope *= -1;
+        }
+        int intercept = randomIntInRange(1, 9); //intercept != 0 to avoid mx+b = mx-b
+        if (Math.random() < 0.5) {
+            intercept *= -1;
+        }
+
+        String baseText = "f(x)=";
+        if (slope < 0) {
+            baseText = baseText + "-";
+        }
+        if (Math.abs(slope) != 1) {
+            baseText = baseText + Math.abs(slope);
+        }
+        baseText = baseText + "x";
+        if (intercept != 0) {
+            if (intercept < 0) {
+                baseText = baseText + "-";
+            }
+            else {
+                baseText = baseText + "+";
+            }
+            baseText = baseText + Math.abs(intercept);
+        }
+
+        int evaluationPoint = randomIntInRange(-9, 9);
+        while (evaluationPoint == 0 || slope * evaluationPoint + intercept == 0) { //evaluationPoint != 0 to avoid mx+b = -mx+b; mx+b != 0 to avoid mx+b = -mx-b
+            evaluationPoint = randomIntInRange(-9, 9);
+        }
+        String evaluationText = "f(" + evaluationPoint + ")";
+
+        questionText = new MathString("If " + baseText + ", what is " + evaluationText + "?");
+
+        //Correct answer
+        int correctFunctionValue; //this question type seems a bit sketchy in terms of potential repeat answers, so all answers are declared outside of braces to be used in repeat checks for the other answers
+        {
+            correctFunctionValue = slope * evaluationPoint + intercept;
+
+            String correctText = "" + correctFunctionValue;
+
+            answers[correctAnswerIndex] = new AnswerChoice(correctText, true, answerX, answerY + correctAnswerIndex * (Media.defaultFontMedium.getHeight() + 10));
+        }
+
+        //Distractor answers
+        int negativeSlopeFunctionValue;
+        {
+            negativeSlopeFunctionValue = -slope * evaluationPoint + intercept;
+            while (negativeSlopeFunctionValue == correctFunctionValue) { //repeat answer check
+                negativeSlopeFunctionValue = randomIntInRange(-90, 90);
+            }
+
+            String negativeSlopeText = "" + negativeSlopeFunctionValue;
+
+            int j = randomIntInRange(0, 2);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(negativeSlopeText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        int negativeInterceptFunctionValue;
+        {
+            negativeInterceptFunctionValue = slope * evaluationPoint - intercept;
+            while (negativeInterceptFunctionValue == correctFunctionValue || negativeInterceptFunctionValue == negativeSlopeFunctionValue) {
+                negativeInterceptFunctionValue = randomIntInRange(-90, 90);
+            }
+
+            String negativeInterceptText = "" + negativeInterceptFunctionValue;
+
+            int j = randomIntInRange(0, 1);
+            answers[incorrectAnswerIndexes.get(j)] = new AnswerChoice(negativeInterceptText, false, answerX, answerY + incorrectAnswerIndexes.get(j) * (Media.defaultFontMedium.getHeight() + 10));
+            incorrectAnswerIndexes.remove(j);
+        }
+
+        int negativeFunctionValue;
+        {
+            negativeFunctionValue = -slope * evaluationPoint - intercept;
+            while (negativeFunctionValue == correctFunctionValue || negativeFunctionValue == negativeSlopeFunctionValue || negativeFunctionValue == negativeInterceptFunctionValue) {
+                negativeFunctionValue = randomIntInRange(-90, 90);
+            }
+
+            String negativeText = "" + negativeFunctionValue;
+
+            answers[incorrectAnswerIndexes.getFirst()] = new AnswerChoice(negativeText, false, answerX, answerY + incorrectAnswerIndexes.getFirst() * (Media.defaultFontMedium.getHeight() + 10));
+        }
+    }
+
+    public static void setEasyMode(boolean easyMode) {
+        MathQuestion.easyMode = easyMode;
+    }
+
     public AnswerChoice getSelectedAnswer() {
         return selectedAnswer;
     }
@@ -954,5 +1196,9 @@ public class MathQuestion implements Values {
 
     public boolean incorrectAnswerSubmitted() {
         return incorrectAnswerSubmitted;
+    }
+
+    public static boolean easyMode() {
+        return easyMode;
     }
 }

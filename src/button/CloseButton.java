@@ -17,6 +17,7 @@ public class CloseButton extends Button {
         ws.closePetSelector();
         ws.closeShop();
         ws.closeMap();
+        ws.closeSettings();
         Media.sfxClose.play();
     }
 }

@@ -8,17 +8,14 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import static core.Main.getScreenHeight;
 import static core.Main.getScreenWidth;
 
-public class TeleportMap implements Values {
+public class TeleportMenu implements Values {
     private MapTeleportButton calderaCastleButton;
     private MapTeleportButton permafrostGlaciersButton;
 
-    public TeleportMap(WorldState ws) {
+    public TeleportMenu(WorldState ws) {
         calderaCastleButton = new MapTeleportButton(getScreenWidth() / 2 - TELEPORT_BUTTON_WIDTH / 2, 20 + Media.defaultFontLarge.getHeight() + 10, World.calderaCastle(), ws);
         permafrostGlaciersButton = new MapTeleportButton(getScreenWidth() / 2 - TELEPORT_BUTTON_WIDTH / 2, 20 + Media.defaultFontLarge.getHeight() + 10 + TELEPORT_BUTTON_HEIGHT + 10, World.permafrostGlaciers(), ws);
     }

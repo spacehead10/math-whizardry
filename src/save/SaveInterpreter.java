@@ -1,5 +1,6 @@
 package save;
 
+import combat.math.MathQuestion;
 import core.Values;
 import entities.creature.Creature;
 import entities.creature.earth.GardenLutin;
@@ -115,6 +116,10 @@ public class SaveInterpreter implements Values {
             saveWriter.write(biome.getCurrentRoomX() + " ");
             saveWriter.write(biome.getCurrentRoomY() + " ");
             saveWriter.write(biome.getLastSpawnpoint() + " ");
+            saveWriter.write("\n");
+
+            //Easy mode?
+            saveWriter.write(MathQuestion.easyMode() + " ");
             saveWriter.write("\n");
 
             saveWriter.close();
@@ -246,6 +251,10 @@ public class SaveInterpreter implements Values {
             biome.setCurrentRoom(saveScanner.nextInt(), saveScanner.nextInt(), saveScanner.next().charAt(0));
             saveScanner.nextLine();
 
+            //Easy mode?
+            MathQuestion.setEasyMode(saveScanner.nextBoolean());
+            saveScanner.nextLine();
+
             saveScanner.close();
             System.out.println("\u001b[32mSaved game loaded successfully.\u001b[0m");
         }
@@ -268,7 +277,7 @@ public class SaveInterpreter implements Values {
         }
     }
 
-    private Class<? extends Item> getItem(String id) {
+    private Class<? extends Item> getItem(String id) throws InterpretationException {
         return switch (id) {
             case "000" -> null;
             case "001" -> Gold.class;
@@ -285,7 +294,7 @@ public class SaveInterpreter implements Values {
         };
     }
 
-    private Creature getPet(String id) {
+    private Creature getPet(String id) throws InterpretationException {
         return switch (id) {
             case "000" -> null;
             case "100" -> new GardenLutin();
@@ -308,7 +317,7 @@ public class SaveInterpreter implements Values {
         };
     }
 
-    private String getID(Item item) {
+    private String getID(Item item) throws InterpretationException {
         if (item == null) {
             return "000";
         }
@@ -347,7 +356,7 @@ public class SaveInterpreter implements Values {
         }
     }
 
-    private String getID(Creature pet) {
+    private String getID(Creature pet) throws InterpretationException {
         if (pet == null) {
             return "000";
         }
