@@ -15,6 +15,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import shop.Shop;
+import world.Cell;
 import world.TeleportMenu;
 import world.World;
 
@@ -35,6 +36,7 @@ public class WorldState extends BasicGameState implements Values {
     private StateBasedGame sbg;
 
     private static Creature lastEnemyEncountered;
+    private static boolean wonLastBattle;
     private boolean inventoryOpen;
     private boolean petSelectorOpen;
     private boolean shopOpen;
@@ -73,6 +75,7 @@ public class WorldState extends BasicGameState implements Values {
         mapOpen = false;
         settingsOpen = false;
         enteringBattle = false;
+        wonLastBattle = false;
 
         enterBattleTimer = ENTER_BATTLE_DELAY;
 
@@ -143,7 +146,7 @@ public class WorldState extends BasicGameState implements Values {
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
         enteringBattle = false;
         enterBattleTimer = ENTER_BATTLE_DELAY;
-        World.enterWorld();
+        World.enterWorld(wonLastBattle);
     }
 
     public void leave(GameContainer gc, StateBasedGame sbg) {
@@ -295,6 +298,10 @@ public class WorldState extends BasicGameState implements Values {
 
     public static void loadGame(boolean saved) {
         saveInterpreter.loadGame(saved);
+    }
+
+    public static void setLastBattleResult(boolean won) {
+        wonLastBattle = won;
     }
 
     public static Creature getLastEnemyEncountered() {

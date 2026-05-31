@@ -45,7 +45,7 @@ public class Room implements Values {
     public void updateUnloaded() {
         for (int i = 0; i < ROOM_GRID_WIDTH; i++) {
             for (int j = 0; j < ROOM_GRID_HEIGHT; j++) {
-                cells[i][j].updateUnloaded(biome);
+                cells[i][j].updateUnloaded();
             }
         }
     }

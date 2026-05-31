@@ -247,80 +247,82 @@ public class Team implements Values {
             return null;
         }
 
+        int level = mainCreature.getLevel();
+
         double allyTypeRNG = Math.random();
         if (mainCreature instanceof FlameLutin) {
             if (allyTypeRNG < 0.8) {
-                return new FlameLutin();
+                return new FlameLutin(level);
             }
             else {
-                return new CloudLutin();
+                return new CloudLutin(level);
             }
         }
         else if (mainCreature instanceof CloudLutin) {
             if (allyTypeRNG < 0.6) {
-                return new CloudLutin();
+                return new CloudLutin(level);
             }
             else if (allyTypeRNG < 0.9) {
-                return new FlameLutin();
+                return new FlameLutin(level);
             }
             else {
-                return new GardenLutin();
+                return new GardenLutin(level);
             }
         }
         else if (mainCreature instanceof FrostLutin) {
             if (allyTypeRNG < 0.6) {
-                return new FrostLutin();
+                return new FrostLutin(level);
             }
             else if (allyTypeRNG < 0.9) {
-                return new RiverLutin();
+                return new RiverLutin(level);
             }
             else {
-                return new GardenLutin();
+                return new GardenLutin(level);
             }
         }
         else if (mainCreature instanceof RiverLutin) {
             if (allyTypeRNG < 0.8) {
-                return new RiverLutin();
+                return new RiverLutin(level);
             }
             else {
-                return new FrostLutin();
+                return new FrostLutin(level);
             }
         }
         else if (mainCreature instanceof GardenLutin) {
             if (allyTypeRNG < 0.6) {
-                return new GardenLutin();
+                return new GardenLutin(level);
             }
             else if (allyTypeRNG < 0.9) {
-                return new CloudLutin();
+                return new CloudLutin(level);
             }
             else {
-                return new FrostLutin();
+                return new FrostLutin(level);
             }
         }
         else if (mainCreature instanceof Terrapyre) {
-            return new Terrapyre();
+            return new Terrapyre(level);
         }
         else if (mainCreature instanceof Frostbite) {
-            return new Frostbite();
+            return new Frostbite(level);
         }
         else if (mainCreature instanceof Voltiger) {
-            return new Voltiger();
+            return new Voltiger(level);
         }
         else {
             if (allyTypeRNG < 0.2) {
-                return new GardenLutin();
+                return new GardenLutin(level);
             }
             else if (allyTypeRNG < 0.4) {
-                return new FlameLutin();
+                return new FlameLutin(level);
             }
             else if (allyTypeRNG < 0.6) {
-                return new RiverLutin();
+                return new RiverLutin(level);
             }
             else if (allyTypeRNG < 0.8) {
-                return new CloudLutin();
+                return new CloudLutin(level);
             }
             else {
-                return new FrostLutin();
+                return new FrostLutin(level);
             }
         }
     }

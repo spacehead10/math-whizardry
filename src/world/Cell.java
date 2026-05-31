@@ -55,16 +55,13 @@ public class Cell implements Values {
     }
 
     public void update() {
-        if (WorldState.isEnteringBattle()) {
-            if (WorldState.getEnterBattleTimer() <= 0 && hasAggro()) {
-                spawnedCreature = null;
-                spawnedCreatureUnit = null;
-                hasCreature = false;
+        if (!WorldState.isEnteringBattle()) {
+            if (spawnTimer <= 0) { //spawn timer is updated while unloaded, but the actual spawning triggers upon loading the room containing this cell; this is to avoid spawning lvl 1 enemies EVERYWHERE at the start of the game
+                spawnEnemy();
             }
-        }
-        else {
+
             if (hasAggro()) {
-                World.enterBattle(spawnedCreature);
+                World.enterBattle(spawnedCreature, this);
             }
 
             if (terrain instanceof Ground && ((Ground) terrain).isTPStart()) {
@@ -76,8 +73,8 @@ public class Cell implements Values {
         }
     }
 
-    //this needs to be called even when the room containing this cell is not loaded
-    public void updateUnloaded(Biome biome) {
+    //update the spawn timer even when the room containing this cell is not loaded
+    public void updateUnloaded() {
         if (spawnTimer > 0) {
             if (!hasCreature) {
                 spawnTimer--;
@@ -85,9 +82,6 @@ public class Cell implements Values {
                     addPopup(new DebugMessage("Spawn: " + spawnTimer, 0));
                 }
             }
-        }
-        else {
-            spawnEnemy(biome);
         }
     }
 
@@ -106,7 +100,7 @@ public class Cell implements Values {
         }
     }
 
-    public void spawnEnemy(Biome biome) {
+    public void spawnEnemy() {
         if (terrain instanceof Ground && ((Ground) terrain).isEnemySpawn()) {
             double rng = Math.random();
             if (biome == World.calderaCastle()) {
@@ -153,6 +147,12 @@ public class Cell implements Values {
             spawnTimer = SPAWN_COOLDOWN;
             hasCreature = true;
         }
+    }
+
+    public void removeEnemy() {
+        spawnedCreature = null;
+        spawnedCreatureUnit = null;
+        hasCreature = false;
     }
 
     public Terrain getTerrain() {

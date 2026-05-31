@@ -25,6 +25,7 @@ public class World implements Values {
     private static WorldState state;
     private static Music biomeMusic;
     private static boolean hasEntered;
+    private static Cell lastAggroCell;
 
     public World(WorldState state) {
         this.state = state;
@@ -33,7 +34,7 @@ public class World implements Values {
         testBiome = new Biome("Biome");
         calderaCastle = new Biome("Caldera Castle");
         permafrostGlaciers = new Biome("Permafrost Glaciers");
-        goToBiome(permafrostGlaciers);
+        goToBiome(calderaCastle);
         PopupManager.init();
     }
 
@@ -56,18 +57,28 @@ public class World implements Values {
         PopupManager.render(g);
     }
 
-    public static void enterWorld() {
+    public static void enterWorld(boolean wonLastBattle) {
+        if (hasEntered) { //the first time entering (i.e. from the title screen, not from a battle), wonLastBattle is meaningless, so this is skipped
+            if (wonLastBattle) {
+                lastAggroCell.removeEnemy();
+            }
+            else {
+                currentBiome.setCurrentRoom(currentBiome.getCurrentRoomX(), currentBiome.getCurrentRoomY(), currentBiome.getLastSpawnpoint());
+            }
+        }
+
         if (biomeMusic != null && !biomeMusic.playing()) {
             biomeMusic.loop(1, MUSIC_VOLUME);
         }
         hasEntered = true;
     }
 
-    public static void enterBattle(Creature enemy) {
+    public static void enterBattle(Creature enemy, Cell cell) {
         state.enterBattle(enemy);
         if (biomeMusic != null) {
             biomeMusic.stop();
         }
+        lastAggroCell = cell;
         Media.sfxAggro.play();
     }
 

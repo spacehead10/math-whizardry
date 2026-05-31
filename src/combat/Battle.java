@@ -6,6 +6,7 @@ import combat.combatUnit.CombatUnit;
 import combat.math.MathQuestion;
 import core.Media;
 import core.Values;
+import core.state.WorldState;
 import entities.player.Player;
 import item.currency.Gold;
 import org.newdawn.slick.*;
@@ -239,11 +240,13 @@ public class Battle implements Values {
                 Player.getInventory().addItem(Gold.class, BASE_GOLD_REWARD * rightSize);
                 World.giveBiomeLoot();
                 left.gainXP(BASE_XP_REWARD * rightSize);
+                WorldState.setLastBattleResult(true);
                 Media.sfxVictory.play();
                 battleOver = true;
             }
             else if (left.hasLost()) {
                 addPopup(new BattleAnnouncement("Defeat...", getScreenHeight() * 0.5f, 300));
+                WorldState.setLastBattleResult(false);
                 Media.sfxDefeat.play();
                 battleOver = true;
             }
