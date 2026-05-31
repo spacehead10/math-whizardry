@@ -80,6 +80,10 @@ public abstract class Attack implements Values {
         };
     }
 
+    public boolean isAreaAttack() {
+        return isAreaAttack;
+    }
+
     public double getDamage() {
         return damage;
     }

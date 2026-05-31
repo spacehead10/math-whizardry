@@ -14,6 +14,9 @@ import static core.Main.getScreenWidth;
 public class TeleportMenu implements Values {
     private MapTeleportButton calderaCastleButton;
     private MapTeleportButton permafrostGlaciersButton;
+    private MapTeleportButton cumulusAcropolisButton;
+    private MapTeleportButton pearlescentReefButton;
+    private MapTeleportButton overgrowthGardensButton;
 
     public TeleportMenu(WorldState ws) {
         calderaCastleButton = new MapTeleportButton(getScreenWidth() / 2 - TELEPORT_BUTTON_WIDTH / 2, 20 + Media.defaultFontLarge.getHeight() + 10, World.calderaCastle(), ws);

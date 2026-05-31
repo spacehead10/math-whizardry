@@ -10,6 +10,7 @@ import entities.creature.fire.Terrapyre;
 import entities.creature.ice.FrostLutin;
 import entities.creature.ice.Frostbite;
 import entities.creature.storm.CloudLutin;
+import entities.creature.storm.Voltiger;
 import entities.creature.water.RiverLutin;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -118,11 +119,50 @@ public class Cell implements Values {
                 if (rng < 0.6) {
                     spawnedCreature = new FrostLutin();
                 }
+                else if (rng < 0.8) {
+                    spawnedCreature = new RiverLutin();
+                }
+                else if (rng < 0.9) {
+                    spawnedCreature = new GardenLutin();
+                }
+                else {
+                    spawnedCreature = new Frostbite();
+                }
+            }
+            else if (biome == World.cumulusAcropolis()) {
+                if (rng < 0.5) {
+                    spawnedCreature = new CloudLutin();
+                }
+                else if (rng < 0.7) {
+                    spawnedCreature = new FrostLutin();
+                }
                 else if (rng < 0.9) {
                     spawnedCreature = new RiverLutin();
                 }
                 else {
-                    spawnedCreature = new Frostbite();
+                    spawnedCreature = new Voltiger();
+                }
+            }
+            else if (biome == World.pearlescentReef()) {
+                if (rng < 0.6) {
+                    spawnedCreature = new RiverLutin();
+                }
+                else if (rng < 0.9) {
+                    spawnedCreature = new FrostLutin();
+                }
+                else {
+                    spawnedCreature = new GardenLutin();
+                }
+            }
+            else if (biome == World.overgrowthGardens()) {
+                if (rng < 0.6) {
+                    spawnedCreature = new GardenLutin();
+                }
+                else if (rng < 0.9) {
+                    spawnedCreature = new RiverLutin();
+                }
+                else {
+                    spawnedCreature = new FrostLutin();
                 }
             }
             else {

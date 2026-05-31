@@ -20,10 +20,19 @@ public class Media {
     public static Image imgButtonIconTeleport;
     public static Image imgButtonIconQuit;
     public static Image imgButtonIconSettings;
+
     public static Image imgBattleBGFire;
     public static Image imgBattleBGIce;
+    public static Image imgBattleBGStorm;
+    public static Image imgBattleBGWater;
+    public static Image imgBattleBGEarth;
+
     public static Image imgCalderaCastleGround;
     public static Image imgPermafrostGlaciersGround;
+    public static Image imgCumulusAcropolisGround;
+    public static Image imgPearlescentReefGround;
+    public static Image imgOvergrowthGardensGround;
+
     public static Image imgCalderaCastleWallCornerBL;
     public static Image imgCalderaCastleWallBottomOverhang;
     public static Image imgCalderaCastleWallCornerBR;
@@ -39,6 +48,7 @@ public class Media {
     public static Image imgCalderaCastleWallTopSide;
     public static Image imgCalderaCastleWallCornerTL;
     public static Image imgCalderaCastleWallNarrowVertical;
+
     public static Image imgPermafrostGlaciersWallCornerBL;
     public static Image imgPermafrostGlaciersWallBottomOverhang;
     public static Image imgPermafrostGlaciersWallCornerBR;
@@ -54,16 +64,72 @@ public class Media {
     public static Image imgPermafrostGlaciersWallTopSide;
     public static Image imgPermafrostGlaciersWallCornerTL;
     public static Image imgPermafrostGlaciersWallNarrowVertical;
+
+    public static Image imgCumulusAcropolisWallCornerBL;
+    public static Image imgCumulusAcropolisWallBottomOverhang;
+    public static Image imgCumulusAcropolisWallCornerBR;
+    public static Image imgCumulusAcropolisWallBottomSide;
+    public static Image imgCumulusAcropolisWallNarrowHorizontal;
+    public static Image imgCumulusAcropolisWallLeftOverhang;
+    public static Image imgCumulusAcropolisWallLeftSide;
+    public static Image imgCumulusAcropolisWallRightOverhang;
+    public static Image imgCumulusAcropolisWallRightSide;
+    public static Image imgCumulusAcropolisWallCenter;
+    public static Image imgCumulusAcropolisWallTopOverhang;
+    public static Image imgCumulusAcropolisWallCornerTR;
+    public static Image imgCumulusAcropolisWallTopSide;
+    public static Image imgCumulusAcropolisWallCornerTL;
+    public static Image imgCumulusAcropolisWallNarrowVertical;
+
+    public static Image imgPearlescentReefWallCornerBL;
+    public static Image imgPearlescentReefWallBottomOverhang;
+    public static Image imgPearlescentReefWallCornerBR;
+    public static Image imgPearlescentReefWallBottomSide;
+    public static Image imgPearlescentReefWallNarrowHorizontal;
+    public static Image imgPearlescentReefWallLeftOverhang;
+    public static Image imgPearlescentReefWallLeftSide;
+    public static Image imgPearlescentReefWallRightOverhang;
+    public static Image imgPearlescentReefWallRightSide;
+    public static Image imgPearlescentReefWallCenter;
+    public static Image imgPearlescentReefWallTopOverhang;
+    public static Image imgPearlescentReefWallCornerTR;
+    public static Image imgPearlescentReefWallTopSide;
+    public static Image imgPearlescentReefWallCornerTL;
+    public static Image imgPearlescentReefWallNarrowVertical;
+
+    public static Image imgOvergrowthGardensWallCornerBL;
+    public static Image imgOvergrowthGardensWallBottomOverhang;
+    public static Image imgOvergrowthGardensWallCornerBR;
+    public static Image imgOvergrowthGardensWallBottomSide;
+    public static Image imgOvergrowthGardensWallNarrowHorizontal;
+    public static Image imgOvergrowthGardensWallLeftOverhang;
+    public static Image imgOvergrowthGardensWallLeftSide;
+    public static Image imgOvergrowthGardensWallRightOverhang;
+    public static Image imgOvergrowthGardensWallRightSide;
+    public static Image imgOvergrowthGardensWallCenter;
+    public static Image imgOvergrowthGardensWallTopOverhang;
+    public static Image imgOvergrowthGardensWallCornerTR;
+    public static Image imgOvergrowthGardensWallTopSide;
+    public static Image imgOvergrowthGardensWallCornerTL;
+    public static Image imgOvergrowthGardensWallNarrowVertical;
+
     public static Image imgMysteriousFan;
     public static Image imgLimestoneWand;
     public static Image imgTrident;
     public static Image imgFireRelicOne;
+    public static Image imgFireRelicTwo;
     public static Image imgIceRelicOne;
+    public static Image imgIceRelicTwo;
     public static Image imgStormRelicOne;
+    public static Image imgStormRelicTwo;
     public static Image imgWaterRelicOne;
+    public static Image imgWaterRelicTwo;
     public static Image imgEarthRelicOne;
+    public static Image imgEarthRelicTwo;
     public static Image imgGold;
+
     public static Image imgAggro;
+
     public static SpriteSheet sheetCreatureFlameLutinLeft;
     public static SpriteSheet sheetCreatureFlameLutinRight;
     public static SpriteSheet sheetCreatureGardenLutinLeft;
@@ -84,6 +150,7 @@ public class Media {
     public static SpriteSheet sheetWizardRight;
     public static SpriteSheet sheetWizardWalkingLeft;
     public static SpriteSheet sheetWizardWalkingRight;
+
     public static SpriteSheet sheetSpellBubbleBurst;
     public static SpriteSheet sheetSpellFireball;
     public static SpriteSheet sheetSpellOrb;
@@ -98,6 +165,7 @@ public class Media {
     public static SpriteSheet sheetSpellSnowstorm;
     public static SpriteSheet sheetSpellWindSlash;
     public static SpriteSheet sheetSpellCapture;
+
     public static Image imgTitleText;
     public static Image[] imgsTitleBG;
 
@@ -169,10 +237,15 @@ public class Media {
         imgLimestoneWand = new Image("res/itemLimestoneWand.png");
         imgTrident = new Image("res/itemTridentWand.png");
         imgFireRelicOne = new Image("res/itemFireRelicOne.png");
+        imgFireRelicTwo = new Image("res/itemFireRelicTwo.png");
         imgIceRelicOne = new Image("res/itemIceRelicOne.png");
+//        imgIceRelicTwo = new Image("res/itemIceRelicTwo.png");
         imgStormRelicOne = new Image("res/itemStormRelicOne.png");
+//        imgStormRelicTwo = new Image("res/itemStormRelicTwo.png");
         imgWaterRelicOne = new Image("res/itemWaterRelicOne.png");
+        imgWaterRelicTwo = new Image("res/itemWaterRelicTwo.png");
         imgEarthRelicOne = new Image("res/itemEarthRelicOne.png");
+//        imgEarthRelicTwo = new Image("res/itemEarthRelicTwo.png");
         imgGold = new Image("res/itemGold.png");
         sheetSpellBubbleBurst = new SpriteSheet(new Image("res/singleSpellBubbleBurst.png"), 140, 140);
         sheetSpellFireball = new SpriteSheet(new Image("res/singleSpellFireball.png"), 140, 140);
@@ -198,6 +271,9 @@ public class Media {
 
     public static Music musicCalderaCastle;
     public static Music musicPermafrostGlaciers;
+    public static Music musicCumulusAcropolis;
+    public static Music musicPearlescentReef;
+    public static Music musicOvergrowthGardens;
     public static Music musicBattle;
     public static Sound sfxButton;
     public static Sound sfxInvalidAction;

@@ -6,8 +6,11 @@ import core.state.WorldState;
 import entities.creature.Creature;
 import entities.player.Player;
 import item.Inventory;
+import item.relic.earth.EarthRelicOne;
 import item.relic.fire.FireRelicOne;
 import item.relic.ice.IceRelicOne;
+import item.relic.storm.StormRelicOne;
+import item.relic.water.WaterRelicOne;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Music;
@@ -20,6 +23,9 @@ public class World implements Values {
     private static Biome testBiome;
     private static Biome calderaCastle;
     private static Biome permafrostGlaciers;
+    private static Biome cumulusAcropolis;
+    private static Biome pearlescentReef;
+    private static Biome overgrowthGardens;
     private static Biome currentBiome;
     private static PlayerWorldUnit playerUnit;
     private static WorldState state;
@@ -34,6 +40,9 @@ public class World implements Values {
         testBiome = new Biome("Biome");
         calderaCastle = new Biome("Caldera Castle");
         permafrostGlaciers = new Biome("Permafrost Glaciers");
+        cumulusAcropolis = new Biome("Cumulus Acropolis");
+        pearlescentReef = new Biome("Pearlescent Reef");
+        overgrowthGardens = new Biome("Overgrowth Gardens");
         goToBiome(calderaCastle);
         PopupManager.init();
     }
@@ -91,6 +100,15 @@ public class World implements Values {
         else if (currentBiome == permafrostGlaciers) {
             biomeMusic = Media.musicPermafrostGlaciers;
         }
+        else if (currentBiome == cumulusAcropolis) {
+            biomeMusic = Media.musicCumulusAcropolis;
+        }
+        else if (currentBiome == pearlescentReef) {
+            biomeMusic = Media.musicPearlescentReef;
+        }
+        else if (currentBiome == overgrowthGardens) {
+            biomeMusic = Media.musicOvergrowthGardens;
+        }
         else {
             biomeMusic = null;
         }
@@ -103,11 +121,30 @@ public class World implements Values {
     public static void giveBiomeLoot() {
         if (Math.random() < RELIC_DROP_CHANCE) {
             Inventory inv = Player.getInventory();
-            if (currentBiome == calderaCastle && !inv.hasItem(new FireRelicOne())) {
-                inv.addItem(FireRelicOne.class, 1);
+            if (currentBiome == calderaCastle) {
+                if (!inv.hasItem(new FireRelicOne())) {
+                    inv.addItem(FireRelicOne.class, 1);
+                }
             }
-            else if (currentBiome == permafrostGlaciers && !inv.hasItem(new IceRelicOne())) {
-                inv.addItem(IceRelicOne.class, 1);
+            else if (currentBiome == permafrostGlaciers) {
+                if (!inv.hasItem(new IceRelicOne())) {
+                    inv.addItem(IceRelicOne.class, 1);
+                }
+            }
+            else if (currentBiome == cumulusAcropolis) {
+                if (!inv.hasItem(new StormRelicOne())) {
+                    inv.addItem(StormRelicOne.class, 1);
+                }
+            }
+            else if (currentBiome == pearlescentReef) {
+                if (!inv.hasItem(new WaterRelicOne())) {
+                    inv.addItem(WaterRelicOne.class, 1);
+                }
+            }
+            else if (currentBiome == overgrowthGardens) {
+                if (!inv.hasItem(new EarthRelicOne())) {
+                    inv.addItem(EarthRelicOne.class, 1);
+                }
             }
         }
     }
@@ -134,5 +171,17 @@ public class World implements Values {
 
     public static Biome permafrostGlaciers() {
         return permafrostGlaciers;
+    }
+
+    public static Biome cumulusAcropolis() {
+        return cumulusAcropolis;
+    }
+
+    public static Biome pearlescentReef() {
+        return pearlescentReef;
+    }
+
+    public static Biome overgrowthGardens() {
+        return overgrowthGardens;
     }
 }

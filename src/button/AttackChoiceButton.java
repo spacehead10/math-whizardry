@@ -62,9 +62,17 @@ public class AttackChoiceButton extends Button {
             double curEnergy = battle.getLeft().getEnergy();
             double energyRequired = battle.getLeft().getActiveUnit().getAttackCost(spellIndex);
 
-            Media.drawAlignedString("Energy: " + (int) curEnergy + "/" + (int) energyRequired, x + SPELL_BUTTON_WIDTH / 2, y, Media.CENTER, Media.TOP, Media.defaultFontMedium, g);
-            Media.drawAlignedString(attack.getNameOfElement(), x + SPELL_BUTTON_WIDTH / 2, y + SPELL_BUTTON_HEIGHT / 2, Media.CENTER, Media.CENTER, Media.defaultFontMedium, g);
-            Media.drawAlignedString(attack.getName(), x + SPELL_BUTTON_WIDTH / 2, y + SPELL_BUTTON_HEIGHT, Media.CENTER, Media.BOTTOM, Media.defaultFontLarge, g);
+            String type;
+            if (attack.isAreaAttack()) {
+                type = "Area";
+            }
+            else {
+                type = "Single";
+            }
+
+            Media.drawAlignedString("Energy: " + (int) curEnergy + "/" + (int) energyRequired, x + SPELL_BUTTON_WIDTH / 2, y, Media.CENTER, Media.TOP, Media.defaultFontSmall, g);
+            Media.drawAlignedString(attack.getName(), x + SPELL_BUTTON_WIDTH / 2, y + SPELL_BUTTON_HEIGHT / 2, Media.CENTER, Media.CENTER, Media.defaultFontLarge, g);
+            Media.drawAlignedString(attack.getNameOfElement() + " - " + type, x + SPELL_BUTTON_WIDTH / 2, y + SPELL_BUTTON_HEIGHT, Media.CENTER, Media.BOTTOM, Media.defaultFontSmall, g);
 
             if (curEnergy < energyRequired) {
                 g.setColor(new Color(0, 0, 0, 127));

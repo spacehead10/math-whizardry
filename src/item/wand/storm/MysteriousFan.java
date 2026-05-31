@@ -11,7 +11,7 @@ public class MysteriousFan extends Wand {
         super();
         name = "Mysterious Fan";
         attack = StormAreaAttackTwo.class;
-        wandDamageMultiplier = 1.05;
+        wandDamageMultiplier = 1.1;
         description.add("This fan creates a breeze without rotating...");
         description.add("Strange.");
         image = Media.imgMysteriousFan.getScaledCopy(0.5f);

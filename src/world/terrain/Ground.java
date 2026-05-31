@@ -37,6 +37,15 @@ public class Ground extends Terrain {
         else if (biome == World.permafrostGlaciers()) {
             Media.imgPermafrostGlaciersGround.draw(x, y, w, h);
         }
+        else if (biome == World.cumulusAcropolis()) {
+            Media.imgCumulusAcropolisGround.draw(x, y, w, h);
+        }
+        else if (biome == World.pearlescentReef()) {
+            Media.imgPearlescentReefGround.draw(x, y, w, h);
+        }
+        else if (biome == World.overgrowthGardens()) {
+            Media.imgOvergrowthGardensGround.draw(x, y, w, h);
+        }
         else {
             super.render(g, biome);
         }

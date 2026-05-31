@@ -59,6 +59,57 @@ public class Wall extends Terrain {
             narrowHorizontal = Media.imgPermafrostGlaciersWallNarrowHorizontal;
             narrowVertical = Media.imgPermafrostGlaciersWallNarrowVertical;
         }
+        else if (biome == World.cumulusAcropolis()) {
+            cornerBL = Media.imgCumulusAcropolisWallCornerBL;
+            cornerBR = Media.imgCumulusAcropolisWallCornerBR;
+            cornerTL = Media.imgCumulusAcropolisWallCornerTL;
+            cornerTR = Media.imgCumulusAcropolisWallCornerTR;
+            bottomSide = Media.imgCumulusAcropolisWallBottomSide;
+            topSide = Media.imgCumulusAcropolisWallTopSide;
+            leftSide = Media.imgCumulusAcropolisWallLeftSide;
+            rightSide = Media.imgCumulusAcropolisWallRightSide;
+            bottomOverhang = Media.imgCumulusAcropolisWallBottomOverhang;
+            topOverhang = Media.imgCumulusAcropolisWallTopOverhang;
+            leftOverhang = Media.imgCumulusAcropolisWallLeftOverhang;
+            rightOverhang = Media.imgCumulusAcropolisWallRightOverhang;
+            center = Media.imgCumulusAcropolisWallCenter;
+            narrowHorizontal = Media.imgCumulusAcropolisWallNarrowHorizontal;
+            narrowVertical = Media.imgCumulusAcropolisWallNarrowVertical;
+        }
+        else if (biome == World.pearlescentReef()) {
+            cornerBL = Media.imgPearlescentReefWallCornerBL;
+            cornerBR = Media.imgPearlescentReefWallCornerBR;
+            cornerTL = Media.imgPearlescentReefWallCornerTL;
+            cornerTR = Media.imgPearlescentReefWallCornerTR;
+            bottomSide = Media.imgPearlescentReefWallBottomSide;
+            topSide = Media.imgPearlescentReefWallTopSide;
+            leftSide = Media.imgPearlescentReefWallLeftSide;
+            rightSide = Media.imgPearlescentReefWallRightSide;
+            bottomOverhang = Media.imgPearlescentReefWallBottomOverhang;
+            topOverhang = Media.imgPearlescentReefWallTopOverhang;
+            leftOverhang = Media.imgPearlescentReefWallLeftOverhang;
+            rightOverhang = Media.imgPearlescentReefWallRightOverhang;
+            center = Media.imgPearlescentReefWallCenter;
+            narrowHorizontal = Media.imgPearlescentReefWallNarrowHorizontal;
+            narrowVertical = Media.imgPearlescentReefWallNarrowVertical;
+        }
+        else if (biome == World.overgrowthGardens()) {
+            cornerBL = Media.imgOvergrowthGardensWallCornerBL;
+            cornerBR = Media.imgOvergrowthGardensWallCornerBR;
+            cornerTL = Media.imgOvergrowthGardensWallCornerTL;
+            cornerTR = Media.imgOvergrowthGardensWallCornerTR;
+            bottomSide = Media.imgOvergrowthGardensWallBottomSide;
+            topSide = Media.imgOvergrowthGardensWallTopSide;
+            leftSide = Media.imgOvergrowthGardensWallLeftSide;
+            rightSide = Media.imgOvergrowthGardensWallRightSide;
+            bottomOverhang = Media.imgOvergrowthGardensWallBottomOverhang;
+            topOverhang = Media.imgOvergrowthGardensWallTopOverhang;
+            leftOverhang = Media.imgOvergrowthGardensWallLeftOverhang;
+            rightOverhang = Media.imgOvergrowthGardensWallRightOverhang;
+            center = Media.imgOvergrowthGardensWallCenter;
+            narrowHorizontal = Media.imgOvergrowthGardensWallNarrowHorizontal;
+            narrowVertical = Media.imgOvergrowthGardensWallNarrowVertical;
+        }
 
         if (cell.topTouchingWall() && cell.bottomTouchingWall() && cell.leftTouchingWall() && cell.rightTouchingWall() && center != null) {
             center.draw(x, y, w, h);

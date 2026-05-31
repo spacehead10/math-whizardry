@@ -313,6 +313,9 @@ public class SaveInterpreter implements Values {
         return switch (id) {
             case "1" -> World.calderaCastle();
             case "2" -> World.permafrostGlaciers();
+            case "3" -> World.cumulusAcropolis();
+            case "4" -> World.pearlescentReef();
+            case "5" -> World.overgrowthGardens();
             default -> World.testBiome();
         };
     }
@@ -395,6 +398,15 @@ public class SaveInterpreter implements Values {
         }
         else if (biome == World.permafrostGlaciers()) {
             return "2";
+        }
+        else if (biome == World.cumulusAcropolis()) {
+            return "3";
+        }
+        else if (biome == World.pearlescentReef()) {
+            return "4";
+        }
+        else if (biome == World.overgrowthGardens()) {
+            return "5";
         }
         else {
             return "0";

@@ -34,6 +34,9 @@ public class Battle implements Values {
     private StateBasedGame sbg;
     private final Image fireBackground = Media.imgBattleBGFire;
     private final Image iceBackground = Media.imgBattleBGIce;
+    private final Image stormBackground = Media.imgBattleBGStorm;
+    private final Image waterBackground = Media.imgBattleBGWater;
+    private final Image earthBackground = Media.imgBattleBGEarth;
     private ToWorldButton toWorldButton;
     private AttackChoiceButton[][] attackChoiceButtons;
     private SwitchButton switchButton;
@@ -393,6 +396,15 @@ public class Battle implements Values {
         }
         else if (World.getCurrentBiome() == World.permafrostGlaciers()) {
             iceBackground.draw(0, 0, getScreenWidth(), getScreenHeight());
+        }
+        else if (World.getCurrentBiome() == World.cumulusAcropolis()) {
+            stormBackground.draw(0, 0, getScreenWidth(), getScreenHeight());
+        }
+        else if (World.getCurrentBiome() == World.pearlescentReef()) {
+            waterBackground.draw(0, 0, getScreenWidth(), getScreenHeight());
+        }
+        else if (World.getCurrentBiome() == World.overgrowthGardens()) {
+            earthBackground.draw(0, 0, getScreenWidth(), getScreenHeight());
         }
     }
 

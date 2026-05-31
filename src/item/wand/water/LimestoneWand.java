@@ -9,7 +9,7 @@ public class LimestoneWand extends Wand {
         super();
         name = "Limestone Wand";
         attack = WaterAreaAttackOne.class;
-        wandDamageMultiplier = 1;
+        wandDamageMultiplier = 1.05;
         description.add("This simple limestone wand is powered by an");
         description.add("enchanted seashell.");
         image = Media.imgLimestoneWand.getScaledCopy(0.5f);
