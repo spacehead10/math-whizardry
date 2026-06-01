@@ -20,6 +20,7 @@ public class Media {
     public static Image imgButtonIconTeleport;
     public static Image imgButtonIconQuit;
     public static Image imgButtonIconSettings;
+    public static Image imgButtonIconHowToPlay;
 
     public static Image imgBattleBGFire;
     public static Image imgBattleBGIce;
@@ -169,6 +170,8 @@ public class Media {
     public static Image imgTitleText;
     public static Image[] imgsTitleBG;
 
+    public static Image[] imgsInfoSlides;
+
     public static void loadImages() throws SlickException {
         imgButton = new Image("res/buttonGray.png");
         imgButtonFancy = new Image("res/buttonFancy.png");
@@ -179,6 +182,7 @@ public class Media {
         imgButtonIconTeleport = new Image("res/buttonIconTeleport.png");
         imgButtonIconQuit = new Image("res/buttonIconQuit.png");
         imgButtonIconSettings = new Image("res/buttonIconSettings.png");
+        imgButtonIconHowToPlay = new Image("res/buttonIconHowToPlay.png");
         imgBattleBGFire = new Image("res/battleBGFire.png");
         imgBattleBGIce = new Image("res/battleBGIce.png");
         sheetCreatureFlameLutinLeft = new SpriteSheet(new Image("res/creatureFlameLutinLeft.png"), 284, 284);
@@ -263,9 +267,13 @@ public class Media {
         sheetSpellCapture = new SpriteSheet(new Image("res/singleSpellCapture.png"), 280, 280);
         imgAggro = new Image("res/aggro.png");
         imgTitleText = new Image("res/titleText.png");
-        imgsTitleBG = new Image[3];
+        imgsTitleBG = new Image[2];
         for (int i = 0; i < imgsTitleBG.length; i++) {
             imgsTitleBG[i] = new Image("res/titleBG" + i + ".png");
+        }
+        imgsInfoSlides = new Image[6];
+        for (int i = 0; i < imgsInfoSlides.length; i++) {
+            imgsInfoSlides[i] = new Image("res/info" + i + ".png");
         }
     }
 

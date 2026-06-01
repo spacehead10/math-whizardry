@@ -14,10 +14,12 @@ public class Main extends StateBasedGame {
     public static final int TITLE_ID = 0;
     public static final int WORLD_ID = 1;
     public static final int BATTLE_ID = 2;
+    public static final int HOW_TO_PLAY_ID = 3;
 
     private BasicGameState title;
     private BasicGameState world;
     private BasicGameState battle;
+    private BasicGameState howToPlay;
 
     public Main(String name) {
         super(name);
@@ -25,6 +27,7 @@ public class Main extends StateBasedGame {
         title = new TitleState(TITLE_ID);
         world = new WorldState(WORLD_ID);
         battle = new BattleState(BATTLE_ID);
+        howToPlay = new HowToPlayState(HOW_TO_PLAY_ID);
     }
 
     public static int getScreenWidth() {
@@ -39,6 +42,7 @@ public class Main extends StateBasedGame {
         addState(title);
         addState(world);
         addState(battle);
+        addState(howToPlay);
     }
 
     public static void main(String[] args) {
