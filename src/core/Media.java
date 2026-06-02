@@ -153,18 +153,35 @@ public class Media {
     public static SpriteSheet sheetWizardWalkingRight;
 
     public static SpriteSheet sheetSpellBubbleBurst;
+    public static SpriteSheet sheetSpellSuperSoakLeft;
+    public static SpriteSheet sheetSpellSuperSoakRight;
     public static SpriteSheet sheetSpellFireball;
+    public static SpriteSheet sheetSpellFlamethrower;
     public static SpriteSheet sheetSpellOrb;
+    public static SpriteSheet sheetSpellRadiantBlast;
+    public static SpriteSheet sheetSpellStellarBeamLeft;
+    public static SpriteSheet sheetSpellStellarBeamRight;
     public static SpriteSheet sheetSpellSnowball;
+    public static SpriteSheet sheetSpellFrigidImpaleLeft;
+    public static SpriteSheet sheetSpellFrigidImpaleRight;
     public static SpriteSheet sheetSpellSparkShock;
+    public static SpriteSheet sheetSpellChargeCannon;
     public static SpriteSheet sheetSpellThornPrickLeft;
     public static SpriteSheet sheetSpellThornPrickRight;
+    public static SpriteSheet sheetSpellLeafBladeLeft;
+    public static SpriteSheet sheetSpellLeafBladeRight;
     public static SpriteSheet sheetSpellDazzle;
+    public static SpriteSheet sheetSpellPlasmaPulse;
     public static SpriteSheet sheetSpellDrizzle;
+    public static SpriteSheet sheetSpellSplashZone;
     public static SpriteSheet sheetSpellHeatwave;
+    public static SpriteSheet sheetSpellFlashover;
     public static SpriteSheet sheetSpellPollenCloud;
+    public static SpriteSheet sheetSpellThornSwarm;
     public static SpriteSheet sheetSpellSnowstorm;
+    public static SpriteSheet sheetSpellFrozenBlanket;
     public static SpriteSheet sheetSpellWindSlash;
+    public static SpriteSheet sheetSpellWhirlingVortex;
     public static SpriteSheet sheetSpellCapture;
 
     public static Image imgTitleText;
@@ -183,8 +200,11 @@ public class Media {
         imgButtonIconQuit = new Image("res/buttonIconQuit.png");
         imgButtonIconSettings = new Image("res/buttonIconSettings.png");
         imgButtonIconHowToPlay = new Image("res/buttonIconHowToPlay.png");
+
         imgBattleBGFire = new Image("res/battleBGFire.png");
         imgBattleBGIce = new Image("res/battleBGIce.png");
+        imgBattleBGStorm = new Image("res/battleBGStorm.png");
+
         sheetCreatureFlameLutinLeft = new SpriteSheet(new Image("res/creatureFlameLutinLeft.png"), 284, 284);
         sheetCreatureFlameLutinRight = new SpriteSheet(new Image("res/creatureFlameLutinRight.png"), 284, 284);
         sheetCreatureGardenLutinLeft = new SpriteSheet(new Image("res/creatureGardenLutinLeft.png"), 284, 284);
@@ -205,8 +225,11 @@ public class Media {
         sheetWizardRight = new SpriteSheet(new Image("res/wizardIdleRight.png"), 284, 284);
         sheetWizardWalkingLeft = new SpriteSheet(new Image("res/wizardWalkingLeft.png"), 284, 284);
         sheetWizardWalkingRight = new SpriteSheet(new Image("res/wizardWalkingRight.png"), 284, 284);
+
         imgCalderaCastleGround = new Image("res/stoneTile.png");
         imgPermafrostGlaciersGround = new Image("res/iceTile.png");
+        imgCumulusAcropolisGround = new Image("res/cloudTile.png");
+
         imgCalderaCastleWallCornerBL = new Image("res/wallBottomLeftCorner.png");
         imgCalderaCastleWallBottomOverhang = new Image("res/wallBottomOverhang.png");
         imgCalderaCastleWallCornerBR = new Image("res/wallBottomRightCorner.png");
@@ -222,6 +245,7 @@ public class Media {
         imgCalderaCastleWallTopSide = new Image("res/wallTopSide.png");
         imgCalderaCastleWallCornerTL = new Image("res/wallTopLeftCorner.png");
         imgCalderaCastleWallNarrowVertical = new Image("res/wallVerticalNarrow.png");
+
         imgPermafrostGlaciersWallCornerBL = new Image("res/iceWallBottomLeftCorner.png");
         imgPermafrostGlaciersWallBottomOverhang = new Image("res/iceWallBottomOverhang.png");
         imgPermafrostGlaciersWallCornerBR = new Image("res/iceWallBottomRightCorner.png");
@@ -237,40 +261,80 @@ public class Media {
         imgPermafrostGlaciersWallTopSide = new Image("res/iceWallTopSide.png");
         imgPermafrostGlaciersWallCornerTL = new Image("res/iceWallTopLeftCorner.png");
         imgPermafrostGlaciersWallNarrowVertical = new Image("res/iceWallVerticalNarrow.png");
+
+        imgCumulusAcropolisWallCornerBL = new Image("res/skyWallBottomLeftCorner.png");
+        imgCumulusAcropolisWallBottomOverhang = new Image("res/skyWallBottomOverhang.png");
+        imgCumulusAcropolisWallCornerBR = new Image("res/skyWallBottomRightCorner.png");
+        imgCumulusAcropolisWallBottomSide = new Image("res/skyWallBottomSide.png");
+        imgCumulusAcropolisWallNarrowHorizontal = new Image("res/skyWallHorizontalNarrow.png");
+        imgCumulusAcropolisWallLeftOverhang = new Image("res/skyWallLeftOverhang.png");
+        imgCumulusAcropolisWallLeftSide = new Image("res/skyWallLeftSide.png");
+        imgCumulusAcropolisWallRightOverhang = new Image("res/skyWallRightOverhang.png");
+        imgCumulusAcropolisWallRightSide = new Image("res/skyWallRightSide.png");
+        imgCumulusAcropolisWallCenter = new Image("res/skyWallCenter.png");
+        imgCumulusAcropolisWallTopOverhang = new Image("res/skyWallTopOverhang.png");
+        imgCumulusAcropolisWallCornerTR = new Image("res/skyWallTopRightCorner.png");
+        imgCumulusAcropolisWallTopSide = new Image("res/skyWallTopSide.png");
+        imgCumulusAcropolisWallCornerTL = new Image("res/skyWallTopLeftCorner.png");
+        imgCumulusAcropolisWallNarrowVertical = new Image("res/skyWallVerticalNarrow.png");
+
         imgMysteriousFan = new Image("res/itemMysteriousFanWand.png");
         imgLimestoneWand = new Image("res/itemLimestoneWand.png");
         imgTrident = new Image("res/itemTridentWand.png");
+
         imgFireRelicOne = new Image("res/itemFireRelicOne.png");
         imgFireRelicTwo = new Image("res/itemFireRelicTwo.png");
         imgIceRelicOne = new Image("res/itemIceRelicOne.png");
-//        imgIceRelicTwo = new Image("res/itemIceRelicTwo.png");
+        imgIceRelicTwo = new Image("res/itemIceRelicTwo.png");
         imgStormRelicOne = new Image("res/itemStormRelicOne.png");
-//        imgStormRelicTwo = new Image("res/itemStormRelicTwo.png");
+        imgStormRelicTwo = new Image("res/itemStormRelicTwo.png");
         imgWaterRelicOne = new Image("res/itemWaterRelicOne.png");
         imgWaterRelicTwo = new Image("res/itemWaterRelicTwo.png");
         imgEarthRelicOne = new Image("res/itemEarthRelicOne.png");
-//        imgEarthRelicTwo = new Image("res/itemEarthRelicTwo.png");
+        imgEarthRelicTwo = new Image("res/itemEarthRelicTwo.png");
+
         imgGold = new Image("res/itemGold.png");
+
         sheetSpellBubbleBurst = new SpriteSheet(new Image("res/singleSpellBubbleBurst.png"), 140, 140);
+        sheetSpellSuperSoakLeft = new SpriteSheet(new Image("res/singleSpellSuperSoakLeftFacing.png"), 140, 140);
+        sheetSpellSuperSoakRight = new SpriteSheet(new Image("res/singleSpellSuperSoakRightFacing.png"), 140, 140);
         sheetSpellFireball = new SpriteSheet(new Image("res/singleSpellFireball.png"), 140, 140);
+        sheetSpellFlamethrower = new SpriteSheet(new Image("res/singleSpellFlamethrower.png"), 140, 140);
         sheetSpellOrb = new SpriteSheet(new Image("res/singleSpellOrb.png"), 140, 140);
+        sheetSpellRadiantBlast = new SpriteSheet(new Image("res/singleSpellRadiantBlast.png"), 140, 140);
+        sheetSpellStellarBeamLeft = new SpriteSheet(new Image("res/singleSpellStellarBeamLeftFacing.png"), 140, 140);
+        sheetSpellStellarBeamRight = new SpriteSheet(new Image("res/singleSpellStellarBeamRightFacing.png"), 140, 140);
         sheetSpellSnowball = new SpriteSheet(new Image("res/singleSpellSnowball.png"), 140, 140);
+        sheetSpellFrigidImpaleLeft = new SpriteSheet(new Image("res/singleSpellFrigidImpaleLeftFacing.png"), 140, 140);
+        sheetSpellFrigidImpaleRight = new SpriteSheet(new Image("res/singleSpellFrigidImpaleRightFacing.png"), 140, 140);
         sheetSpellSparkShock = new SpriteSheet(new Image("res/singleSpellSparkShock.png"), 140, 140);
+        sheetSpellChargeCannon = new SpriteSheet(new Image("res/singleSpellChargeCannon.png"), 140, 140);
         sheetSpellThornPrickLeft = new SpriteSheet(new Image("res/singleSpellThornPrickLeftFacing.png"), 140, 140);
         sheetSpellThornPrickRight = new SpriteSheet(new Image("res/singleSpellThornPrickRightFacing.png"), 140, 140);
+        sheetSpellLeafBladeLeft = new SpriteSheet(new Image("res/singleSpellLeafBladeLeftFacing.png"), 140, 140);
+        sheetSpellLeafBladeRight = new SpriteSheet(new Image("res/singleSpellLeafBladeRightFacing.png"), 140, 140);
         sheetSpellDazzle = new SpriteSheet(new Image("res/areaSpellDazzle.png"), 540, 540);
+        sheetSpellPlasmaPulse = new SpriteSheet(new Image("res/areaSpellPlasmaPulse.png"), 540, 540);
         sheetSpellDrizzle = new SpriteSheet(new Image("res/areaSpellDrizzle.png"), 540, 540);
+        sheetSpellSplashZone = new SpriteSheet(new Image("res/areaSpellSplashZone.png"), 540, 540);
         sheetSpellHeatwave = new SpriteSheet(new Image("res/areaSpellHeatwave.png"), 540, 540);
+        sheetSpellFlashover = new SpriteSheet(new Image("res/areaSpellFlashover.png"), 540, 540);
         sheetSpellPollenCloud = new SpriteSheet(new Image("res/areaSpellPollenCloud.png"), 540, 540);
+        sheetSpellThornSwarm = new SpriteSheet(new Image("res/areaSpellThornSwarm.png"), 540, 540);
         sheetSpellSnowstorm = new SpriteSheet(new Image("res/areaSpellSnowstorm.png"), 540, 540);
+        sheetSpellFrozenBlanket = new SpriteSheet(new Image("res/areaSpellFrozenBlanket.png"), 540, 540);
         sheetSpellWindSlash = new SpriteSheet(new Image("res/areaSpellWindSlash.png"), 540, 540);
+        sheetSpellWhirlingVortex = new SpriteSheet(new Image("res/areaSpellWhirlingVortex.png"), 540, 540);
         sheetSpellCapture = new SpriteSheet(new Image("res/singleSpellCapture.png"), 280, 280);
+
         imgAggro = new Image("res/aggro.png");
+
         imgTitleText = new Image("res/titleText.png");
         imgsTitleBG = new Image[2];
         for (int i = 0; i < imgsTitleBG.length; i++) {
             imgsTitleBG[i] = new Image("res/titleBG" + i + ".png");
         }
+
         imgsInfoSlides = new Image[6];
         for (int i = 0; i < imgsInfoSlides.length; i++) {
             imgsInfoSlides[i] = new Image("res/info" + i + ".png");
@@ -299,6 +363,7 @@ public class Media {
     public static void loadSound() throws SlickException {
         musicCalderaCastle = new Music("res/sound/calderaCastle.ogg");
         musicPermafrostGlaciers = new Music("res/sound/permafrostGlaciers.ogg");
+        musicCumulusAcropolis = new Music("res/sound/cumulusAcropolis.ogg");
         musicBattle = new Music("res/sound/battle.ogg");
         sfxButton = new Sound("res/sound/click.wav");
         sfxInvalidAction = new Sound("res/sound/cancel.wav");

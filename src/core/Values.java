@@ -52,6 +52,7 @@ public interface Values {
     int PETS_PER_SELECTOR_ROW = 3;
 
     int PLAYER_MAIN_SINGLE_UPGRADE_ONE = 20;
+    int PLAYER_MAIN_SINGLE_UPGRADE_TWO = 40;
     int PLAYER_MAIN_AREA_UPGRADE_ONE = 30;
     int CREATURE_ALT_SINGLE_UNLOCK = 10;
     int CREATURE_ALT_AREA_UNLOCK = 20;
@@ -93,7 +94,7 @@ public interface Values {
     int TELEPORT_BUTTON_WIDTH = 320;
     int TELEPORT_BUTTON_HEIGHT = 64;
 
-    double RELIC_DROP_CHANCE = 0.05;
+    double RELIC_DROP_CHANCE = 0.2;
 
     int SPELL_DELAY = 60;
     int SPELL_EFFECT_DURATION = 48;

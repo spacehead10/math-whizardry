@@ -6,11 +6,11 @@ import core.state.WorldState;
 import entities.creature.Creature;
 import entities.player.Player;
 import item.Inventory;
-import item.relic.earth.EarthRelicOne;
-import item.relic.fire.FireRelicOne;
-import item.relic.ice.IceRelicOne;
-import item.relic.storm.StormRelicOne;
-import item.relic.water.WaterRelicOne;
+import item.relic.earth.*;
+import item.relic.fire.*;
+import item.relic.ice.*;
+import item.relic.storm.*;
+import item.relic.water.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Music;
@@ -125,25 +125,40 @@ public class World implements Values {
                 if (!inv.hasItem(new FireRelicOne())) {
                     inv.addItem(FireRelicOne.class, 1);
                 }
+                else if (!inv.hasItem(new FireRelicTwo()) && player.getLevel() >= 20) {
+                    inv.addItem(FireRelicTwo.class, 1);
+                }
             }
             else if (currentBiome == permafrostGlaciers) {
                 if (!inv.hasItem(new IceRelicOne())) {
                     inv.addItem(IceRelicOne.class, 1);
+                }
+                else if (!inv.hasItem(new IceRelicTwo()) && player.getLevel() >= 20) {
+                    inv.addItem(IceRelicTwo.class, 1);
                 }
             }
             else if (currentBiome == cumulusAcropolis) {
                 if (!inv.hasItem(new StormRelicOne())) {
                     inv.addItem(StormRelicOne.class, 1);
                 }
+                else if (!inv.hasItem(new StormRelicTwo()) && player.getLevel() >= 20) {
+                    inv.addItem(StormRelicTwo.class, 1);
+                }
             }
             else if (currentBiome == pearlescentReef) {
                 if (!inv.hasItem(new WaterRelicOne())) {
                     inv.addItem(WaterRelicOne.class, 1);
                 }
+                else if (!inv.hasItem(new WaterRelicTwo()) && player.getLevel() >= 20) {
+                    inv.addItem(WaterRelicTwo.class, 1);
+                }
             }
             else if (currentBiome == overgrowthGardens) {
                 if (!inv.hasItem(new EarthRelicOne())) {
                     inv.addItem(EarthRelicOne.class, 1);
+                }
+                else if (!inv.hasItem(new EarthRelicTwo()) && player.getLevel() >= 20) {
+                    inv.addItem(EarthRelicTwo.class, 1);
                 }
             }
         }

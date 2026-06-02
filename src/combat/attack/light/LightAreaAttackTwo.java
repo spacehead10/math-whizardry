@@ -2,6 +2,7 @@ package combat.attack.light;
 
 import combat.Elements;
 import combat.attack.Attack;
+import core.Media;
 
 public class LightAreaAttackTwo extends Attack {
     public LightAreaAttackTwo(double userDamageMultiplier, double userLevelBonus) {
@@ -9,5 +10,7 @@ public class LightAreaAttackTwo extends Attack {
         damage = userDamageMultiplier * ((TIER_TWO_DAMAGE * AREA_ATTACK_DAMAGE_MULTIPLIER) + userLevelBonus);
         name = "Plasma Pulse";
         isAreaAttack = true;
+        sheetLeft = Media.sheetSpellPlasmaPulse;
+        sheetRight = Media.sheetSpellPlasmaPulse;
     }
 }

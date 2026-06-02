@@ -2,6 +2,7 @@ package combat.attack.water;
 
 import combat.Elements;
 import combat.attack.Attack;
+import core.Media;
 
 public class WaterAreaAttackTwo extends Attack {
     public WaterAreaAttackTwo(double userDamageMultiplier, double userLevelBonus) {
@@ -9,5 +10,7 @@ public class WaterAreaAttackTwo extends Attack {
         damage = userDamageMultiplier * ((TIER_TWO_DAMAGE * AREA_ATTACK_DAMAGE_MULTIPLIER) + userLevelBonus);
         name = "Splash Zone";
         isAreaAttack = true;
+        sheetLeft = Media.sheetSpellSplashZone;
+        sheetRight = Media.sheetSpellSplashZone;
     }
 }

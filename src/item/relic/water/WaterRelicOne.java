@@ -11,8 +11,8 @@ public class WaterRelicOne extends Relic {
         super();
         name = "Water Relic I";
         attack = WaterSingleAttackOne.class;
-        description.add("This Relic of ??? grants the user");
-        description.add("some basic Water powers.");
+        description.add("This Relic of Pearlescent Reef grants the");
+        description.add("user some basic Water powers.");
         image = Media.imgWaterRelicOne.getScaledCopy(0.5f);
     }
 }

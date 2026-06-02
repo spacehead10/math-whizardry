@@ -42,8 +42,11 @@ public class Player extends Entity {
         if (curLevel < PLAYER_MAIN_SINGLE_UPGRADE_ONE) {
             mainSingleAttack = new LightSingleAttackOne(damageMultiplier, levelDamageBonus);
         }
-        else {
+        else if (curLevel < PLAYER_MAIN_SINGLE_UPGRADE_TWO) {
             mainSingleAttack = new LightSingleAttackTwo(damageMultiplier, levelDamageBonus);
+        }
+        else {
+            mainSingleAttack = new LightSingleAttackThree(damageMultiplier, levelDamageBonus);
         }
 
         if (curLevel < PLAYER_MAIN_AREA_UPGRADE_ONE) {

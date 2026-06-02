@@ -10,8 +10,8 @@ public class StormRelicOne extends Relic {
         super();
         name = "Storm Relic I";
         attack = StormSingleAttackOne.class;
-        description.add("This Relic of ??? grants the user");
-        description.add("some basic Storm powers.");
+        description.add("This Relic of Cumulus Acropolis grants the");
+        description.add("user some basic Storm powers.");
         image = Media.imgStormRelicOne.getScaledCopy(0.5f);
     }
 }

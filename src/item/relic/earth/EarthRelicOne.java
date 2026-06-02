@@ -10,8 +10,8 @@ public class EarthRelicOne extends Relic {
         super();
         name = "Earth Relic I";
         attack = EarthSingleAttackOne.class;
-        description.add("This Relic of ??? grants the user");
-        description.add("some basic Earth powers.");
+        description.add("This Relic of Overgrowth Gardens grants the");
+        description.add("user some basic Earth powers.");
         image = Media.imgEarthRelicOne.getScaledCopy(0.5f);
     }
 }

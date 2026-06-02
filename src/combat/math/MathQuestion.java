@@ -56,17 +56,14 @@ public class MathQuestion implements Values {
             }
         }
         else {
-//            switch (randomIntInRange(0, 7)) {
-//                case 0 -> generateDerivPowerQuestion();
-//                case 1 -> generateDerivTrigQuestion();
-//                case 2 -> generateDerivExponentialQuestion();
-//                case 3 -> generateDerivLnQuestion();
-//                case 4 -> generateIntegralPowerQuestion();
-//                case 5 -> generateIntegralTrigQuestion();
-//                case 6 -> generateIntegralExponentialQuestion();
-//                default -> generateIntegralLnQuestion();
-//            }
-            generateDerivLnQuestion();
+            switch (randomIntInRange(0, 5)) {
+                case 0 -> generateDerivPowerQuestion();
+                case 1 -> generateDerivTrigQuestion();
+                case 2 -> generateDerivExponentialQuestion();
+                case 3 -> generateIntegralPowerQuestion();
+                case 4 -> generateIntegralTrigQuestion();
+                default -> generateIntegralExponentialQuestion();
+            }
         }
 
         answerChoiceButtons = new AnswerChoiceButton[4];

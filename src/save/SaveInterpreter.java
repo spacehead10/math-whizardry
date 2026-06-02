@@ -3,29 +3,25 @@ package save;
 import combat.math.MathQuestion;
 import core.Values;
 import entities.creature.Creature;
-import entities.creature.earth.GardenLutin;
-import entities.creature.fire.FlameLutin;
-import entities.creature.fire.Terrapyre;
-import entities.creature.ice.FrostLutin;
-import entities.creature.ice.Frostbite;
-import entities.creature.storm.CloudLutin;
-import entities.creature.storm.Voltiger;
-import entities.creature.water.RiverLutin;
+import entities.creature.earth.*;
+import entities.creature.fire.*;
+import entities.creature.ice.*;
+import entities.creature.storm.*;
+import entities.creature.water.*;
 import entities.player.Player;
 import item.Inventory;
 import item.Item;
 import item.currency.Gold;
 import item.relic.Relic;
-import item.relic.earth.EarthRelicOne;
-import item.relic.fire.FireRelicOne;
-import item.relic.ice.IceRelicOne;
-import item.relic.storm.StormRelicOne;
-import item.relic.water.WaterRelicOne;
+import item.relic.earth.*;
+import item.relic.fire.*;
+import item.relic.ice.*;
+import item.relic.storm.*;
+import item.relic.water.*;
 import item.wand.Wand;
-import item.wand.earth.EnchantedRose;
-import item.wand.storm.MysteriousFan;
-import item.wand.water.LimestoneWand;
-import item.wand.water.Trident;
+import item.wand.earth.*;
+import item.wand.storm.*;
+import item.wand.water.*;
 import pet.PetSelector;
 import world.World;
 import world.biome.Biome;
@@ -152,16 +148,17 @@ public class SaveInterpreter implements Values {
     }
 
     private void loadNewGame() {
-//        Player.getPetSelector().addPet(new FlameLutin(DEFAULT_STARTING_LEVEL));
-//        Player.getPetSelector().addPet(new CloudLutin(DEFAULT_STARTING_LEVEL));
-//        Player.getPetSelector().addPet(new FrostLutin(DEFAULT_STARTING_LEVEL));
-//        Player.getPetSelector().addPet(new RiverLutin(DEFAULT_STARTING_LEVEL));
-//        Player.getPetSelector().addPet(new GardenLutin(DEFAULT_STARTING_LEVEL));
-//        Player.getInventory().addItem(Gold.class, 30);
-//        Player.getInventory().addItem(EarthRelicOne.class, 1);
+//        Player.getInventory().addItem(Gold.class, 10000);
 //        Player.getInventory().addItem(FireRelicOne.class, 1);
-//        Player.getInventory().addItem(EnchantedRose.class, 1);
-//        Player.getInventory().addItem(LimestoneWand.class, 1);
+//        Player.getInventory().addItem(IceRelicOne.class, 1);
+//        Player.getInventory().addItem(StormRelicOne.class, 1);
+//        Player.getInventory().addItem(WaterRelicOne.class, 1);
+//        Player.getInventory().addItem(EarthRelicOne.class, 1);
+//        Player.getInventory().addItem(FireRelicTwo.class, 1);
+//        Player.getInventory().addItem(IceRelicTwo.class, 1);
+//        Player.getInventory().addItem(StormRelicTwo.class, 1);
+//        Player.getInventory().addItem(WaterRelicTwo.class, 1);
+//        Player.getInventory().addItem(EarthRelicTwo.class, 1);
     }
 
     private void loadSavedGame() throws FileNotFoundException {
@@ -286,6 +283,11 @@ public class SaveInterpreter implements Values {
             case "131" -> IceRelicOne.class;
             case "141" -> StormRelicOne.class;
             case "151" -> WaterRelicOne.class;
+            case "112" -> EarthRelicTwo.class;
+            case "122" -> FireRelicTwo.class;
+            case "132" -> IceRelicTwo.class;
+            case "142" -> StormRelicTwo.class;
+            case "152" -> WaterRelicTwo.class;
             case "210" -> EnchantedRose.class;
             case "250" -> LimestoneWand.class;
             case "251" -> Trident.class;
@@ -341,6 +343,21 @@ public class SaveInterpreter implements Values {
         }
         else if (item instanceof WaterRelicOne) {
             return "151";
+        }
+        else if (item instanceof EarthRelicTwo) {
+            return "112";
+        }
+        else if (item instanceof FireRelicTwo) {
+            return "122";
+        }
+        else if (item instanceof IceRelicTwo) {
+            return "132";
+        }
+        else if (item instanceof StormRelicTwo) {
+            return "142";
+        }
+        else if (item instanceof WaterRelicTwo) {
+            return "152";
         }
         else if (item instanceof EnchantedRose) { //Wands: 2 + element [1-5] + next free wand ID [0-9]
             return "210";
