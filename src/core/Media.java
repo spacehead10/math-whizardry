@@ -117,6 +117,11 @@ public class Media {
     public static Image imgMysteriousFan;
     public static Image imgLimestoneWand;
     public static Image imgTrident;
+    public static Image imgEnchantedRose;
+    public static Image imgCharredWand;
+    public static Image imgSparkler;
+    public static Image imgSnowyShovel;
+    public static Image imgColdSpoon;
     public static Image imgFireRelicOne;
     public static Image imgFireRelicTwo;
     public static Image imgIceRelicOne;
@@ -147,6 +152,10 @@ public class Media {
     public static SpriteSheet sheetCreatureFrostbiteRight;
     public static SpriteSheet sheetCreatureVoltigerLeft;
     public static SpriteSheet sheetCreatureVoltigerRight;
+    public static SpriteSheet sheetCreatureHydroctoLeft;
+    public static SpriteSheet sheetCreatureHydroctoRight;
+    public static SpriteSheet sheetCreatureTerrapotterLeft;
+    public static SpriteSheet sheetCreatureTerrapotterRight;
     public static SpriteSheet sheetWizardLeft;
     public static SpriteSheet sheetWizardRight;
     public static SpriteSheet sheetWizardWalkingLeft;
@@ -221,6 +230,10 @@ public class Media {
         sheetCreatureFrostbiteRight = new SpriteSheet(new Image("res/creatureFrostbiteRight.png"), 284, 284);
         sheetCreatureVoltigerLeft = new SpriteSheet(new Image("res/creatureVoltigerLeft.png"), 284, 284);
         sheetCreatureVoltigerRight = new SpriteSheet(new Image("res/creatureVoltigerRight.png"), 284, 284);
+        sheetCreatureHydroctoLeft = new SpriteSheet(new Image("res/creatureHydroctopusLeft.png"), 284, 284);
+        sheetCreatureHydroctoRight = new SpriteSheet(new Image("res/creatureHydroctopusRight.png"), 284, 284);
+        sheetCreatureTerrapotterLeft = new SpriteSheet(new Image("res/creatureTerrapotterLeft.png"), 284, 284);
+        sheetCreatureTerrapotterRight = new SpriteSheet(new Image("res/creatureTerrapotterRight.png"), 284, 284);
         sheetWizardLeft = new SpriteSheet(new Image("res/wizardIdleLeft.png"), 284, 284);
         sheetWizardRight = new SpriteSheet(new Image("res/wizardIdleRight.png"), 284, 284);
         sheetWizardWalkingLeft = new SpriteSheet(new Image("res/wizardWalkingLeft.png"), 284, 284);
@@ -281,6 +294,11 @@ public class Media {
         imgMysteriousFan = new Image("res/itemMysteriousFanWand.png");
         imgLimestoneWand = new Image("res/itemLimestoneWand.png");
         imgTrident = new Image("res/itemTridentWand.png");
+        imgEnchantedRose = new Image("res/itemEnchantedRose.png");
+        imgCharredWand = new Image("res/itemCharredWand.png");
+        imgSparkler = new Image("res/itemSparkler.png");
+        imgSnowyShovel = new Image("res/itemSnowyShovel.png");
+        imgColdSpoon = new Image("res/itemColdSpoon.png");
 
         imgFireRelicOne = new Image("res/itemFireRelicOne.png");
         imgFireRelicTwo = new Image("res/itemFireRelicTwo.png");

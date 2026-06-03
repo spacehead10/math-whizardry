@@ -79,7 +79,7 @@ public class Biome implements Values {
             biomeScanner.close();
         }
         catch (FileNotFoundException fnfe) {
-            System.out.println("\u001b[31mCould not find biome file " + "\"" + fileName + "\"" + "!\u001b[0m");
+//            System.out.println("\u001b[31mCould not find biome file " + "\"" + fileName + "\"" + "!\u001b[0m");
         }
         catch (StringIndexOutOfBoundsException sioobe) {
             System.out.println("\u001b[31mBiome file does not have the correct number of columns, or max rooms counting horizontally is set incorrectly!\u001b[0m");

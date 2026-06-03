@@ -9,7 +9,7 @@ public class EarthSingleAttackTwo extends Attack {
     public EarthSingleAttackTwo(double userDamageMultiplier, double userLevelBonus) {
         element = Elements.EARTH;
         damage = userDamageMultiplier * (TIER_TWO_DAMAGE + userLevelBonus);
-        name = "Leaf Blade";
+        name = "Plant Pummel";
         isAreaAttack = false;
         sheetLeft = Media.sheetSpellLeafBladeLeft;
         sheetRight = Media.sheetSpellLeafBladeRight;

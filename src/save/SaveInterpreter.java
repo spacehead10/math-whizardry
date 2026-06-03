@@ -22,6 +22,8 @@ import item.wand.Wand;
 import item.wand.earth.*;
 import item.wand.storm.*;
 import item.wand.water.*;
+import item.wand.fire.*;
+import item.wand.ice.*;
 import pet.PetSelector;
 import world.World;
 import world.biome.Biome;
@@ -291,6 +293,10 @@ public class SaveInterpreter implements Values {
             case "210" -> EnchantedRose.class;
             case "250" -> LimestoneWand.class;
             case "251" -> Trident.class;
+            case "230" -> ColdSpoon.class;
+            case "231" -> SnowyShovel.class;
+            case "220" -> CharredWand.class;
+            case "221" -> Sparkler.class;
             case "240" -> MysteriousFan.class;
             default -> throw new InterpretationException(id);
         };
@@ -307,6 +313,8 @@ public class SaveInterpreter implements Values {
             case "210" -> new Terrapyre();
             case "310" -> new Frostbite();
             case "410" -> new Voltiger();
+            case "110" -> new Terrapotter();
+            case "510" -> new Hydrocto();
             default -> throw new InterpretationException(id);
         };
     }
@@ -368,6 +376,18 @@ public class SaveInterpreter implements Values {
         else if (item instanceof Trident) {
             return "251";
         }
+        else if (item instanceof ColdSpoon) {
+            return "230";
+        }
+        else if (item instanceof SnowyShovel) {
+            return "231";
+        }
+        else if (item instanceof CharredWand) {
+            return "220";
+        }
+        else if (item instanceof Sparkler) {
+            return "221";
+        }
         else if (item instanceof MysteriousFan) {
             return "240";
         }
@@ -403,6 +423,12 @@ public class SaveInterpreter implements Values {
         }
         else if (pet instanceof Voltiger) {
             return "410";
+        }
+        else if (pet instanceof Terrapotter) {
+            return "110";
+        }
+        else if (pet instanceof Hydrocto) {
+            return "510";
         }
         else {
             throw new InterpretationException(pet.getClass().getName());

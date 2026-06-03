@@ -33,6 +33,7 @@ public class TitleState extends BasicGameState implements Values {
     private EasyModeButton easyModeButton;
     private NormalModeButton normalModeButton;
     private HowToPlayButton howToPlayButton;
+    private CheatNoteButton cheatNoteButton;
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
@@ -55,7 +56,8 @@ public class TitleState extends BasicGameState implements Values {
         loadSaveButton = new LoadSaveButton((int) (getScreenWidth() * 0.67f - START_BUTTON_WIDTH / 2), getScreenHeight() / 2, sbg);
         easyModeButton = new EasyModeButton((int) (getScreenWidth() * 0.4f - MODE_SELECTION_BUTTON_WIDTH / 2), getScreenHeight() / 2, sbg);
         normalModeButton = new NormalModeButton((int) (getScreenWidth() * 0.6f - MODE_SELECTION_BUTTON_WIDTH / 2), getScreenHeight() / 2, sbg);
-        howToPlayButton = new HowToPlayButton(getScreenWidth() - LARGE_SQUARE_BUTTON_SIZE - 10, 10, sbg);
+        howToPlayButton = new HowToPlayButton(getScreenWidth() - LARGE_SQUARE_BUTTON_SIZE - 50, 50, sbg);
+        cheatNoteButton = new CheatNoteButton(getScreenWidth() - DEFAULT_SQUARE_BUTTON_SIZE - 10, getScreenHeight() - DEFAULT_SQUARE_BUTTON_SIZE - 10, sbg);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -85,6 +87,7 @@ public class TitleState extends BasicGameState implements Values {
             loadSaveButton.render(g, gc);
             Media.drawShadowedString("Warning: Starting a new game will overwrite existing save data.", getScreenWidth() / 2, getScreenHeight() / 2 + START_BUTTON_HEIGHT, Media.CENTER, Media.TOP, Media.defaultFontMedium, Color.white, Color.black, g);
             howToPlayButton.render(g, gc);
+            cheatNoteButton.render(g, gc);
         }
     }
 
@@ -106,6 +109,7 @@ public class TitleState extends BasicGameState implements Values {
             newGameButton.mousePressed(x, y);
             loadSaveButton.mousePressed(x, y);
             howToPlayButton.mousePressed(x, y);
+            cheatNoteButton.mousePressed(x, y);
         }
     }
 

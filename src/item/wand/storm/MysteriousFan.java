@@ -15,6 +15,6 @@ public class MysteriousFan extends Wand {
         description.add("This fan creates a breeze without rotating...");
         description.add("Strange.");
         image = Media.imgMysteriousFan.getScaledCopy(0.5f);
-        cost = 450;
+        cost = 600;
     }
 }

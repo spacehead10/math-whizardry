@@ -22,7 +22,7 @@ public class HowToPlayButton extends Button {
     @Override public void render(Graphics g, GameContainer gc) {
         super.render(g, gc);
         g.setColor(Color.white);
-        Media.drawAlignedString("How To Play", x + w / 2, y + h, Media.CENTER, Media.BOTTOM, Media.defaultFontTiny, g);
+        Media.drawAlignedString("How To Play", x + w / 2, y + h, Media.CENTER, Media.BOTTOM, Media.defaultFontSmall, g);
     }
 
     @Override public void onClick() {

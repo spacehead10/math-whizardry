@@ -14,6 +14,6 @@ public class Trident extends Wand {
         description.add("of the ancient trident that created all of the");
         description.add("world's oceans.");
         image = Media.imgTrident.getScaledCopy(0.5f);
-        cost = 450;
+        cost = 600;
     }
 }
